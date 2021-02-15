@@ -8,7 +8,7 @@ export const Container = styled.div`
     height: 50px;
     line-height: 45px;
     padding: 3px;
-    position: fixed;
+    position: relative;
     bottom: 0;
 
 `;

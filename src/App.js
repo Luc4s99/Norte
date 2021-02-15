@@ -7,9 +7,9 @@ import Login from "./view/login"
 function App() {
   return (
     <>
-      {/* <Cadastro /> */}
+       <Cadastro />
       {/* <CadastroEmpresa /> */}
-      <Login />
+      {/*<Login />*/}
       <GlobalStyles />
     </>
   );

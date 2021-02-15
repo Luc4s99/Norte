@@ -14,12 +14,6 @@ export const Logo = styled.div`
     margin-top: 40px;
     text-align: center;
     margin-left: 0;
-
-    img{
-        
-        width: 300px;
-        height: 150px;
-    }
 `;
 
 export const Label = styled.div`
