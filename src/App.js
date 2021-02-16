@@ -9,10 +9,10 @@ import PerfilPessoa from "./view/perfilPessoa";
 function App() {
   return (
     <>
-      <PerfilPessoa />
-      {/*<CadastroPessoa/>*/}
-      {/*<Cadastro />*/}
-      {/* <CadastroEmpresa /> */}
+      {/* <PerfilPessoa /> */}
+      {/* <CadastroPessoa/> */}
+      {/* <Cadastro /> */}
+      <CadastroEmpresa />
       {/*<Login />*/}
       <GlobalStyles />
     </>
