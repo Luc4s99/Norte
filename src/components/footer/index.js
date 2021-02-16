@@ -1,17 +1,21 @@
 import React from 'react';
 
-import {Container} from './styles'
+import {Fixfooter} from './styles'
 
 function Footer() {
 
     return (
         <>
             
-            <Container>
+            <Fixfooter>
                 
-                    © 2021 Copyright: Norte
+                <footer class="bg-light text-center text-lg-start">
+                    <div class="text-center p-3">
+                        © 2020 Copyright: Lucas Gabriel e Lucas Mateus
+                    </div>
+                </footer>
                 
-            </Container>
+            </Fixfooter>
            
         </>
     );

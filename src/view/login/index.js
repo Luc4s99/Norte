@@ -2,7 +2,6 @@ import React from 'react';
 import Footer from '../../components/footer';
 import './styles.css';
 import logo from '../../assets/images/logo.jpg'
-import { Link } from 'react-router-dom';
 
 function Login() {
 
