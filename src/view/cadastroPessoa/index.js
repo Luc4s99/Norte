@@ -1,73 +1,71 @@
 import React from 'react';
 import Footer from '../../components/footer';
 import Navbar from '../../components/navbar';
-import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Button } from './styles';
+import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Button, Wrapper } from './styles';
 
 function cadastroPessoa() {
 
     return (
         <>
             <Navbar/>
-
-                <div className="content">
-
+                <Wrapper>
                     <H2style>Cadastro de Pessoa</H2style>
 
                     <Formgroup>
 
                         <Inputgroup>
-                            <div class="input-group">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <div className="input-group">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Nome</span>
+                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
-                            <div class="input-group">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Cidade</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <div className="input-group">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Cidade</span>
+                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
-                            <div class="input-group">
-                                <span class="input-group-text" id="inputGroup-sizing-default">CPF</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <div className="input-group">
+                                <span className="input-group-text" id="inputGroup-sizing-default">CPF</span>
+                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
-                            <div class="input-group">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Telefone</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+                            <div className="input-group">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Telefone</span>
+                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
-                            <div class="input-group">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Idade</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <div className="input-group">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Idade</span>
+                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
-                            <div class="input-group">
-                                <span class="input-group-text" id="inputGroup-sizing-default">Endereço</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <div className="input-group">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Endereço</span>
+                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
-                            <div class="input-group">
-                                <span class="input-group-text" id="inputGroup-sizing-default">E-mail</span>
-                                <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <div className="input-group">
+                                <span className="input-group-text" id="inputGroup-sizing-default">E-mail</span>
+                                <input type="email" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
-                            <div class="input-group mb-3">
-                                <label class="input-group-text" for="inputGroupSelect01">Estado</label>
-                                <select class="form-select" id="inputGroupSelect01">
+                            <div className="input-group mb-3">
+                                <label className="input-group-text" for="inputGroupSelect01">Estado</label>
+                                <select className="form-select" id="inputGroupSelect01">
                                     <option selected>Selecione</option>
                                     <option value="1">AC</option>
                                     <option value="2">AL</option>
@@ -106,7 +104,7 @@ function cadastroPessoa() {
 
                         <Fotopreview>
 
-                            <img class="preview-img" />
+                            <img className="preview-img" />
 
                         </Fotopreview>
 
@@ -117,30 +115,30 @@ function cadastroPessoa() {
                     <H2style>Descrição</H2style>
 
                     <Descricao>
-                        <div class="input-group">
-                            <span class="input-group-text">Descrição</span>
-                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        <div className="input-group">
+                            <span className="input-group-text">Descrição</span>
+                            <textarea className="form-control" aria-label="With textarea"></textarea>
                         </div>
                     </Descricao>
+
+                    
 
                     <Buttongroup>
 
                         <Button>
 
-                            <button type="button" class="btn btn-danger">Cancelar</button>
+                            <button type="button" className="btn btn-danger">Cancelar</button>
                             
                         </Button>
 
                         <Button>
 
-                            <button type="button" class="btn btn-success">Continuar</button>
+                            <button type="button" className="btn btn-success">Continuar</button>
 
                         </Button>
 
                     </Buttongroup>
-
-                </div>
-
+                </Wrapper>
             <Footer/>
             
         </>

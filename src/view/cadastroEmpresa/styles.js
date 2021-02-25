@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    
-`;
-
 export const Formgroup = styled.div`
 
     width: 65%;
@@ -51,6 +45,8 @@ export const H2style = styled.h2`
     margin-top: 25px;
     margin-bottom: 25px;
     font-weight: bold;
+    text-align: center;   
+
 `;
 
 export const Inputgroup = styled.div`
@@ -73,15 +69,37 @@ export const Fotopreview = styled.div`
 
 export const Buttongroup = styled.div`
 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    
+    
     background-color: #67aaaf;
     width: 300px;
-    display: inline-block;
+    border-radius: 10px;
+    padding: 15px;
+
+    /* background-color: #67aaaf;
+    width: 300px;
+    display: block;
     margin-top: 30px;
     border-radius: 10px;
     padding: 15px;
+    margin-left: auto;
+    margin-right: auto; */
+
 `;
 
 export const Button = styled.button`
+/* 
+    padding-right:25px; */
+`;
 
-    margin-left: 15px;
+export const Wrapper = styled.div`
+    min-height: 100%;
+
 `;

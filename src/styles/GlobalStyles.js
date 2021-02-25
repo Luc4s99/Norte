@@ -9,6 +9,7 @@ export default createGlobalStyle`
     padding: 0;
     color: var(--black);
     font: 14px 'Rubik', sans-serif;
+    box-sizing: border-box;
   }
 
   html, body, #root {

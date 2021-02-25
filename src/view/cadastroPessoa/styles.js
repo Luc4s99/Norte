@@ -36,6 +36,8 @@ export const H2style = styled.h2`
     margin-top: 25px;
     margin-bottom: 25px;
     font-weight: bold;
+    text-align: center;  
+
 `;
 
 export const Inputgroup = styled.div`
@@ -58,15 +60,25 @@ export const Fotopreview = styled.div`
 
 export const Buttongroup = styled.div`
 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;    
+    
     background-color: #67aaaf;
     width: 300px;
-    display: inline-block;
-    margin-top: 30px;
     border-radius: 10px;
     padding: 15px;
+
 `;
 
 export const Button = styled.button`
+   
+`;
 
-    margin-left: 15px;
+export const Wrapper = styled.div`
+    min-height: 100%;
+
 `;

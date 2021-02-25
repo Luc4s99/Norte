@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
-import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Button } from './styles';
+import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Button, Wrapper } from './styles';
 
 function PerfilPessoa() {
 
@@ -9,7 +9,7 @@ function PerfilPessoa() {
         <>
             <Navbar/>
 
-            <div className="content">
+            <Wrapper>
 
                 <H2style>Meu Perfil</H2style>
 
@@ -138,7 +138,7 @@ function PerfilPessoa() {
 
                 </Buttongroup>
 
-            </div>
+            </Wrapper>
 
             <Footer/>
         </>

@@ -1,13 +1,13 @@
 import React from 'react';
 import Footer from '../../components/footer';
-import './styles.css';
+import { Wrapper, Links } from './styles.js'
 import logo from '../../assets/images/logo.jpg'
 
 function Login() {
 
     return(
         <>
-            <div className="content">
+            <Wrapper>
                 <img src={logo} alt="Logo do site"></img>
 
                 <form>
@@ -24,16 +24,14 @@ function Login() {
 
                 </form>
 
-                <div className="links">
+                <Links>
 
                     <a href="#">Ainda não possui conta?</a>
-                    <br/>
-                    <br/>
                     <a href="#">Esqueceu sua senha?</a>
 
-                </div>
+                </Links>
 
-            </div>
+            </Wrapper>
 
             <Footer/>
         </>
