@@ -27,11 +27,19 @@ export const Links = styled.div`
     margin: auto;
     padding: 20px;
     border-radius: 10px;
-    
-    
 
     > a:first-child{
         margin-bottom: 15px;
     }
 
+`;
+
+export const Box = styled.div`
+
+    background-color: #67aaaf;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 40%;
+    padding: 15px;
+    border-radius: 10px;
 `;

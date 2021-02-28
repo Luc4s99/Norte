@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '../../components/footer';
 import Navbar from '../../components/navbar';
-import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Button, Wrapper } from './styles';
+import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Wrapper } from './styles';
 
 function cadastroPessoa() {
 
@@ -44,7 +44,7 @@ function cadastroPessoa() {
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Idade</span>
-                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <input type="date" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
@@ -125,19 +125,12 @@ function cadastroPessoa() {
 
                     <Buttongroup>
 
-                        <Button>
+                        <button type="button" className="btn btn-danger">Cancelar</button>
 
-                            <button type="button" className="btn btn-danger">Cancelar</button>
-                            
-                        </Button>
-
-                        <Button>
-
-                            <button type="button" className="btn btn-success">Continuar</button>
-
-                        </Button>
+                        <button type="button" className="btn btn-success">Continuar</button>
 
                     </Buttongroup>
+                    
                 </Wrapper>
             <Footer/>
             
