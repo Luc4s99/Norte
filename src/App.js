@@ -11,9 +11,9 @@ function App() {
   return (
     <>
       {/* <PerfilPessoa /> */}
-      <CadastroPessoa/>
-      {/*<Cadastro />*/}
-      {/*<CadastroCurriculo />*/}
+      {/* <CadastroPessoa/> */}
+      {/* <Cadastro /> */}
+      <CadastroCurriculo />
       {/* <CadastroEmpresa /> */}
       {/* <Login /> */}
       <GlobalStyles />

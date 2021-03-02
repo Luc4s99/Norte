@@ -26,8 +26,8 @@ export const Label = styled.div`
     align-self: center;
     color: #FFF;
     font-size: 32px;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
 
     border: 1px solid white;
 
