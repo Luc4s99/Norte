@@ -4,7 +4,11 @@ import empresa from '../../assets/images/empresa.jpg'
 import candidato from '../../assets/images/candidato.jpg'
 import Footer from '../../components/footer'
 
+import { Switch, Route, Link, Redirect} from 'react-router-dom';
 import { Container, Logo, Label, Opcao, Voltar, Imagem, Botao } from './styles';
+
+import CadastroPessoa from '../cadastroPessoa';
+import CadastroEmpresa from '../cadastroEmpresa';
 
 function cadastro() {
   return (
@@ -20,12 +24,21 @@ function cadastro() {
             <img src={empresa} alt="empresa" />            
           </Imagem>
           <Botao>
-            <button type="button" className="btn btn-lg">Um Candidato</button>
-            <button type="button" className="btn btn-lg">Uma Empresa</button>
+            <Link to="/cadastroPessoa" className="btn btn-lg">Um Candidato</Link>
+            <Link to="/cadastroEmpresa" className="btn btn-lg">Uma Empresa</Link>
           </Botao>          
         </Opcao>
         <Voltar> <button type="button" className="btn btn-lg my-5">Voltar</button> </Voltar>        
         <Footer/>
+
+      <Switch>
+        <Route exact path="/cadastroPessoa">
+          <CadastroPessoa />
+        </Route>
+
+        <Route exact path="/cadastroEmpresa" />
+      </Switch>
+
     </Container>
     </>
   );
