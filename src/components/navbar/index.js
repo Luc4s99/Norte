@@ -1,12 +1,25 @@
 import React from 'react';
+import {Link, Redirect} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
 import { Bodymargin } from './styles';
 import { Bell } from '@styled-icons/entypo/Bell';
 
 function Navbar() {
 
+    const dispatch = useDispatch();
+
+    function handleLogout() {
+
+        <Redirect to="/cadastro" />
+
+        dispatch({
+           type: 'LOG_OUT'
+        });
+    }
+
     return (
         <>
-            
+            {useSelector(state => state.user.usuarioLogado) === 0 ? <Redirect to="/login" /> : null}
             <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">Norte</a>
@@ -43,6 +56,14 @@ function Navbar() {
                                 <Bell size="36" />
                             </button>
                         </li>
+
+                        { useSelector(state => state.user.usuarioLogado) === 1 &&
+                                                          
+                            <li className="nav-item">
+                                <Link className="nav-link" to="#" onClick={handleLogout} >Sair <span className="sr-only">(current)</span> </Link>
+                            </li>                    
+                            
+                        }
 
                     </div>
                 </div>
