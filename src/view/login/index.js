@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Footer from '../../components/footer';
 import { Wrapper, Links, Box } from './styles.js';
 import logo from '../../assets/images/logo.jpg';
+<<<<<<< HEAD
 
 import firebase from '../../config/firebase';
 import 'firebase/auth';
@@ -39,6 +40,33 @@ function Login() {
                         //console.log(JSON.stringify(erro));
                     }
                 )
+=======
+import firebase from '../../config/firebase';
+import 'firebase/auth';
+import { Redirect, Link } from 'react-router-dom';
+import Cadastro from "../cadastro";
+
+
+
+function Login() {
+
+    const[user, setUser] = useState('');
+    const[password, setPassword] = useState('');
+    const[logged, setLogged] = useState(false);
+
+    //Ainda verificar essa função
+    function handleLogin() {
+        
+        //Função não está funcionando corretamente
+        firebase.auth().signInWithEmailAndPassword(user, password).then(
+            () => {
+                alert("sucesso")
+                //<Redirect to="/cadastro" />
+            }
+        ).catch((error) => {
+            alert(error.code);
+        })
+>>>>>>> 908eec3985398e13f87a5d206272870427293c26
     }
 
     return(
@@ -53,6 +81,7 @@ function Login() {
                     <form>
 
                         <div className="mb-3">
+<<<<<<< HEAD
                             <label for="exampleInputEmail1" className="form-label"><h4>Usuário</h4></label>
                             <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" onChange={e => setEmail(e.target.value)}/>
                         </div>
@@ -82,14 +111,25 @@ function Login() {
                             </span>
                             }
 
+=======
+                            <label htmlFor="inputEmail" className="form-label"><h4>Usuário</h4></label>
+                            <input placeholder="Digite seu usuário..." type="email" className="form-control" id="inputEmail" onChange={e => setUser(e.target.value)} />
                         </div>
+
+                        <div className="mb-3">
+                            <label htmlFor="inputPassword" className="form-label"><h4>Senha</h4></label>
+                            <input placeholder="Digite sua senha..." type="password" className="form-control" id="inputPassword" onChange={e => setPassword(e.target.value)} />
+>>>>>>> 908eec3985398e13f87a5d206272870427293c26
+                        </div>
+
+                        <button className="btn btn-primary" onClick={handleLogin}>Entrar</button>
 
                     </form>
                 </Box>
 
                 <Links>
 
-                    <a href="#">Ainda não possui conta?</a>
+                    <Link to="/cadastro">Ainda não possui conta?</Link>
                     <a href="#">Esqueceu sua senha?</a>
 
                 </Links>
