@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import { Bodymargin } from './styles';
@@ -7,11 +7,11 @@ import { Bell } from '@styled-icons/entypo/Bell';
 function Navbar() {
 
     const dispatch = useDispatch();
+    const [logout, setLogout] = useState(0);
 
     function handleLogout() {
 
-        <Redirect to="/cadastro" />
-
+        setLogout(1);
         dispatch({
            type: 'LOG_OUT'
         });
@@ -19,7 +19,7 @@ function Navbar() {
 
     return (
         <>
-            {useSelector(state => state.user.usuarioLogado) === 0 ? <Redirect to="/login" /> : null}
+            {logout === 1 ? <Redirect to ="/login" /> : null}
             <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">Norte</a>

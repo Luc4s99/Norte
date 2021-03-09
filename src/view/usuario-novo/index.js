@@ -4,7 +4,7 @@ import './usuario-novo.css';
 import firebase from '../../config/firebase'
 import 'firebase/auth';
 import NavBar from '../../components/navbar';
-
+import {Redirect} from 'react-router-dom';
 
 function UsuarioNovo(){
 
@@ -13,6 +13,7 @@ function UsuarioNovo(){
     const [msg, setMsg] = useState('');
     const [msgTipo, setMsgTipo] = useState('');
     const [carregando, setCarregando] = useState(false);
+    const [cadastrou, setCadastrou] = useState(0);
 
     function handleNewUser(){
 
@@ -32,8 +33,14 @@ function UsuarioNovo(){
                 .then(
                     resultado => {
                         setMsgTipo('Sucesso');
-                        setCarregando(false);
-                        //console.log(JSON.stringify(resultado));
+                        setMsg('Cadastrado com sucesso! Agora faça login com sua nova conta.');
+                        alert('Cadastrado com sucesso! Agora faça login com sua nova conta.');
+                        setTimeout(() => {                            
+                            setCadastrou(1);                                                   
+                        } ,1000);
+
+                        
+                        //console.log(JSON.stringify(resultado)); 
                     }
                 )
                 .catch(
@@ -61,8 +68,9 @@ function UsuarioNovo(){
                 )
     }
 
+
     return(
-        <>
+        <>        
         <NavBar/>
         <div className="login-content d-flex align-items-center text-center">
             
@@ -86,28 +94,28 @@ function UsuarioNovo(){
                         onClick={handleNewUser}> Cadastrar
                     </button>
                 }
+
                 <div className="opcoes-login text-white my-5">
                     
                     { msgTipo === "Sucesso" &&
                     <span>
-                       WOW! <strong> {msg} &#128526;</strong>
+                       <strong> {msg} </strong>
                     </span>
                     }
                     <br/>
                     {
                         msgTipo === "Erro" &&                    
                     <span>
-                        Ops! <strong> {msg} &#128549;</strong>
+                        <strong> {msg} </strong>
                     </span>
                     }
 
                 </div>
-               
 
             </form>
-
-
+            
         </div>
+        {cadastrou === 1 ? <Redirect to ="/login" /> : null}
         </>
     )
 }

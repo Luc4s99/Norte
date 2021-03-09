@@ -7,11 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^4.6.0",
-<<<<<<< HEAD
     "firebase": "^8.2.10",
-=======
-    "firebase": "^8.2.9",
->>>>>>> 908eec3985398e13f87a5d206272870427293c26
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.0",

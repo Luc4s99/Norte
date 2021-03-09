@@ -6,7 +6,7 @@ import logo from '../../assets/images/logo.jpg';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 import {Link, Redirect} from 'react-router-dom';
-import{useSelector, useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 function Login() {
 
@@ -15,22 +15,21 @@ function Login() {
     const [msg, setMsg] = useState('');
     const dispatch = useDispatch();
 
-    function handleLogin(){
-
+    function handleLogin(){        
+        // console.log("Entrou 1",email,senha);
+        
         firebase.auth()
                 .signInWithEmailAndPassword(email, senha)
                 .then(
                     resultado => {
-                        setMsg('Sucesso');
-                       
-                        setTimeout( ()=> {
-                            dispatch({
-                                type:'LOG_IN',
-                                payload: {usuarioEmail: email}
-                            });
-                        }, 2000);
-                        
-                        //console.log(JSON.stringify(resultado));
+                    setMsg('Sucesso');
+                    setTimeout( ()=> {
+                        dispatch({
+                            type:'LOG_IN',
+                            payload: {usuarioEmail: email}
+                        });
+                    }, 2000);
+                    // console.log(JSON.stringify(resultado));
                     }
                 )
                 .catch(
@@ -39,6 +38,7 @@ function Login() {
                         //console.log(JSON.stringify(erro));
                     }
                 )
+        
     }
 
     return(
@@ -54,22 +54,38 @@ function Login() {
 
                         <div className="mb-3">
                             <label htmlFor="inputEmail" className="form-label"><h4>Usuário</h4></label>
-                            <input placeholder="Digite seu usuário..." type="email" className="form-control" id="inputEmail" onChange={e => setUser(e.target.value)} />
+                            <input placeholder="Digite seu usuário..." type="email" className="form-control" id="inputEmail" onChange={e => setEmail(e.target.value)} />
                         </div>
 
                         <div className="mb-3">
                             <label htmlFor="inputPassword" className="form-label"><h4>Senha</h4></label>
-                            <input placeholder="Digite sua senha..." type="password" className="form-control" id="inputPassword" onChange={e => setPassword(e.target.value)} />
+                            <input placeholder="Digite sua senha..." type="password" className="form-control" id="inputPassword" onChange={e => setSenha(e.target.value)} />
                         </div>
 
-                        <button className="btn btn-primary" onClick={handleLogin}>Entrar</button>
+                        <button className="btn btn-primary" type="button" onClick={handleLogin}>Entrar</button>
 
+                        <div className="opcoes-login text-white my-5">
+                    
+                            { msg === "Sucesso" &&
+                            <span>
+                                WOW! <strong> Você está conectado! &#128526;</strong>
+                            </span>
+                            }
+                            <br/>
+                            {
+                                msg === "Erro" &&                    
+                            <span>
+                                Ops! <strong> Verifique se a senha ou o usuário estão corretos! &#128549;</strong>
+                            </span>
+                            }
+
+                        </div>
                     </form>
                 </Box>
 
                 <Links>
 
-                    <Link to="/cadastro">Ainda não possui conta?</Link>
+                    <Link to="/novousuario">Ainda não possui conta?</Link>
                     <a href="#">Esqueceu sua senha?</a>
 
                 </Links>

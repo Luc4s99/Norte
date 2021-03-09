@@ -5,7 +5,7 @@ import empresa from '../../assets/images/empresa.jpg'
 import candidato from '../../assets/images/candidato.jpg'
 import Footer from '../../components/footer'
 
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Redirect, Route, Switch} from 'react-router-dom';
 import{useSelector, useDispatch} from 'react-redux';
 
 import { Container, Logo, Label, Opcao, Voltar, Imagem, Botao } from './styles';
@@ -17,6 +17,7 @@ import CadastroEmpresa from '../cadastroEmpresa';
 function cadastro() {
   return (
     <>
+    <Navbar />
     <Container>
         <Logo>
           <img src={logo} alt="Norte"></img>
@@ -36,9 +37,7 @@ function cadastro() {
         <Footer/>
 
       <Switch>
-        <Route exact path="/cadastroPessoa">
-          <CadastroPessoa />
-        </Route>
+        <Route exact path="/cadastroPessoa" />
 
         <Route exact path="/cadastroEmpresa" />
       </Switch>
