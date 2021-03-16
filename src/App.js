@@ -8,6 +8,7 @@ import Login from "./view/login"
 import PerfilPessoa from "./view/perfilPessoa";
 import CadastroCurriculo from "./view/cadastroCurriculo";
 import UsuarioNovo from './view/usuario-novo';
+import Home from './view/home';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/novousuario" component={UsuarioNovo} />  
         <Route exact path="/cadastro" component={Cadastro} />

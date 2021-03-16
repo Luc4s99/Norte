@@ -33,7 +33,7 @@ function cadastro() {
             <Link to="/cadastroEmpresa" className="btn btn-lg">Uma Empresa</Link>
           </Botao>          
         </Opcao>
-        <Voltar> <button type="button" className="btn btn-lg my-5">Voltar</button> </Voltar>        
+        <Voltar><Link to='/'><button type="button" className="btn btn-lg my-5">Voltar</button></Link></Voltar>        
         <Footer/>
 
       <Switch>

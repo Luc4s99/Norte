@@ -1,9 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Footer from '../../components/footer';
 import Navbar from '../../components/navbar';
 import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Wrapper } from './styles';
 
-function cadastroPessoa() {
+import firebase from '../../config/firebase'
+import 'firebase/auth';
+import { Link } from 'react-router-dom';
+
+function CadastroPessoa() {
+
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+    const [nome, setNome] = useState('');
+    const [cidade, setCidade] = useState('');
+    const [cpf, setCpf] = useState('');
+    const [telefone, setTelefone] = useState('');
+    const [nascimento, setNascimento] = useState(0);
+    const [endereco, setEndereco] = useState('');
+    const [estado, setEstado] = useState('');
+
+    const storage = firebase.storage(); 
+    const db = firebase.firestore();
+
+    function novoUsuario(){
+
+        if(!email || !senha || email === '' || senha === ''){
+            
+            alert('E-mail e Senha são obrigatórios.');
+            return;
+        }        
+        alert("ola");
+        db.collection("usuarios").add({
+            email: email,
+            senha: senha,
+            telefone: telefone,
+            estado: estado,
+            nascimento: new Date(nascimento),
+            cidade: cidade,
+            cpf: cpf,
+            nome: nome,
+            empresa: 0,
+            candidato: 1,
+            endereco: endereco//,
+            //user:user
+        }).then( () => {
+            alert("sucessod");
+        }).catch( (res) => {
+            alert('Erro ao cadastrar!');    
+        });
+        
+    }
 
     return (
         <>
@@ -16,85 +62,91 @@ function cadastroPessoa() {
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Nome</span>
-                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <input type="text" className="form-control" onChange={e => setNome(e.target.value)} aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Cidade</span>
-                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <input type="text" className="form-control" onChange={e => setCidade(e.target.value)} aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">CPF</span>
-                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <input type="text" className="form-control" onChange={e => setCpf(e.target.value)} aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Telefone</span>
-                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+                                <input type="text" className="form-control" onChange={e => setTelefone(e.target.value)} aria-describedby="inputGroup-sizing-default"/>
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
-                                <span className="input-group-text" id="inputGroup-sizing-default">Idade</span>
-                                <input type="date" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <span className="input-group-text" id="inputGroup-sizing-default">Nascimento</span>
+                                <input type="date" className="form-control" onChange={e => setNascimento(e.target.value)} aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Endereço</span>
-                                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <input type="text" className="form-control" onChange={e => setEndereco(e.target.value)} aria-describedby="inputGroup-sizing-default" />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">E-mail</span>
-                                <input type="email" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                                <input type="email" className="form-control"  aria-describedby="inputGroup-sizing-default" onChange={e => setEmail(e.target.value)} />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group mb-3">
-                                <label className="input-group-text" for="inputGroupSelect01">Estado</label>
-                                <select className="form-select" id="inputGroupSelect01">
-                                    <option selected>Selecione</option>
-                                    <option value="1">AC</option>
-                                    <option value="2">AL</option>
-                                    <option value="3">AP</option>
-                                    <option value="3">AM</option>
-                                    <option value="3">BA</option>
-                                    <option value="3">CE</option>
-                                    <option value="3">DF</option>
-                                    <option value="3">ES</option>
-                                    <option value="3">GO</option>
-                                    <option value="3">MA</option>
-                                    <option value="3">MT</option>
-                                    <option value="3">MS</option>
-                                    <option value="3">MG</option>
-                                    <option value="3">PA</option>
-                                    <option value="3">PB</option>
-                                    <option value="3">PR</option>
-                                    <option value="3">PE</option>
-                                    <option value="3">PI</option>
-                                    <option value="3">RJ</option>
-                                    <option value="3">RN</option>
-                                    <option value="3">RS</option>
-                                    <option value="3">RO</option>
-                                    <option value="3">RR</option>
-                                    <option value="3">SC</option>
-                                    <option value="3">SP</option>
-                                    <option value="3">SE</option>
-                                    <option value="3">TO</option>
+                                <label className="input-group-text" htmlFor="inputGroupSelect01">Estado</label>
+                                <select onChange={e => setEstado(e.target.value)} className="form-select" defaultValue={'MG'} id="inputGroupSelect01">
+                                    <option value="AC">AC</option>
+                                    <option value="AL">AL</option>
+                                    <option value="AP">AP</option>
+                                    <option value="AM">AM</option>
+                                    <option value="BA">BA</option>
+                                    <option value="CE">CE</option>
+                                    <option value="DF">DF</option>
+                                    <option value="ES">ES</option>
+                                    <option value="GO">GO</option>
+                                    <option value="MA">MA</option>
+                                    <option value="MT">MT</option>
+                                    <option value="MS">MS</option>
+                                    <option value="MG">MG</option>
+                                    <option value="PA">PA</option>
+                                    <option value="PB">PB</option>
+                                    <option value="PR">PR</option>
+                                    <option value="PE">PE</option>
+                                    <option value="PI">PI</option>
+                                    <option value="RJ">RJ</option>
+                                    <option value="RN">RN</option>
+                                    <option value="RS">RS</option>
+                                    <option value="RO">RO</option>
+                                    <option value="RR">RR</option>
+                                    <option value="SC">SC</option>
+                                    <option value="SP">SP</option>
+                                    <option value="SE">SE</option>
+                                    <option value="TO">TO</option>
                                 </select>
+                            </div>
+                        </Inputgroup>
+
+                        <Inputgroup>
+                            <div className="input-group">
+                                <span className="input-group-text" id="inputGroup-sizing-default">Senha</span>
+                                <input type="password" className="form-control" aria-describedby="inputGroup-sizing-default" onChange={e => setSenha(e.target.value)} />
                             </div>
                         </Inputgroup>
                     
@@ -125,9 +177,9 @@ function cadastroPessoa() {
 
                     <Buttongroup>
 
-                        <button type="button" className="btn btn-danger">Cancelar</button>
+                        <Link to="/"><button type="button" className="btn btn-danger">Cancelar</button></Link>
 
-                        <button type="button" className="btn btn-success">Continuar</button>
+                        <button type="button" className="btn btn-success" onClick={novoUsuario}>Continuar</button>
 
                     </Buttongroup>
                     
@@ -138,4 +190,4 @@ function cadastroPessoa() {
     );
 }
 
-export default cadastroPessoa;
+export default CadastroPessoa;
