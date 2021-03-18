@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import wallpaper from '../../assets/images/img_home.jpeg';
 
 export const Wrapper = styled.div`
     
@@ -39,10 +38,4 @@ export const Texto = styled.div`
     margin-left: 15%;
     margin-right: 15%;
     font: 20px;
-`;
-
-export const Box = styled.div`
-
-    display: inline-block;
-    margin-top: 40px;
 `;

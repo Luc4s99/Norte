@@ -6,7 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 
 const persistedReducer = persistReducer({
-        key:'rootEventos',
+        key:'rootNorte',
         storage:storage,
         stateReconciler: hardSet,
         whitelist:['user']

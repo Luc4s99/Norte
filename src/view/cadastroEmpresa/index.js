@@ -14,31 +14,30 @@ function cadastroEmpresa() {
                 <Formgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Nome Fantasia</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Nome Fantasia</span>
+                            <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Cidade</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Cidade</span>
+                            <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">CNPJ</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">CNPJ</span>
+                            <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group mb-3">
-                            <label class="input-group-text" for="inputGroupSelect01">Estado</label>
-                            <select class="form-select" id="inputGroupSelect01">
-                                <option selected>Selecione</option>
+                        <div className="input-group mb-3">
+                            <label className="input-group-text" htmlFor="inputGroupSelect01">Estado</label>
+                            <select className="form-select" defaultValue={'MG'} id="inputGroupSelect01">
                                 <option value="1">AC</option>
                                 <option value="2">AL</option>
                                 <option value="3">AP</option>
@@ -71,30 +70,30 @@ function cadastroEmpresa() {
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Razão Social</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Razão Social</span>
+                            <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Endereço</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Endereço</span>
+                            <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">E-mail</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">E-mail</span>
+                            <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Telefone</span>
-                            <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Telefone</span>
+                            <input type="email" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>                        
                 
@@ -104,7 +103,7 @@ function cadastroEmpresa() {
 
                     <Fotopreview>
 
-                        <img class="preview-img" />
+                        <img className="preview-img" />
 
                     </Fotopreview>
 
@@ -112,21 +111,21 @@ function cadastroEmpresa() {
                         
                 </Fotoinput>
 
-                {/* <i class="fas fa-plus fa-lg"></i> */}
+                {/* <i className="fas fa-plus fa-lg"></i> */}
 
-                <H2style>Interesses <button type="button" class="btn btn-info">+</button></H2style>
+                <H2style>Interesses <button type="button" className="btn btn-info">+</button></H2style>
                 <Interesses>
-                    <div class="input-group">
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                    <div className="input-group">
+                        <textarea className="form-control" aria-label="With textarea"></textarea>
                     </div>
                 </Interesses>
 
                 <H2style>Descrição</H2style>
 
                 <Descricao>
-                    <div class="input-group">
-                        <span class="input-group-text">Descrição</span>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                    <div className="input-group">
+                        <span className="input-group-text">Descrição</span>
+                        <textarea className="form-control" aria-label="With textarea"></textarea>
                     </div>
                 </Descricao>
 
@@ -134,13 +133,13 @@ function cadastroEmpresa() {
 
                     <Button>
 
-                        <button type="button" class="btn btn-danger">Cancelar</button>
+                        <button type="button" className="btn btn-danger">Cancelar</button>
                         
                     </Button>
 
                     <Button>
 
-                        <button type="button" class="btn btn-success">Continuar</button>
+                        <button type="button" className="btn btn-success">Continuar</button>
 
                     </Button>
 

@@ -2,8 +2,25 @@ import React from 'react';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Button, Wrapper } from './styles';
+import firebase from '../../config/firebase';
+import 'firebase/auth';
+import {useSelector, useDispatch} from 'react-redux';
 
 function PerfilPessoa() {
+
+    const usuarioNome = useSelector(state => state.user.usuarioNome)
+    const usuarioEmail = useSelector(state => state.user.usuarioEmail)
+    const usuarioCidade = useSelector(state => state.user.usuarioCidade)
+    const usuarioCpf = useSelector(state => state.user.usuarioCpf)
+    const usuarioEndereco = useSelector(state => state.user.usuarioEndereco)
+    const usuarioEstado = useSelector(state => state.user.usuarioEstado)
+    const usuarioNascimento = useSelector(state => state.user.usuarioNascimento)
+    const usuarioTelefone = useSelector(state => state.user.usuarioTelefone)
+    const usuarioDescricao = useSelector(state => state.user.usuarioDescricao)
+
+    console.log(usuarioEndereco)
+
+    const db = firebase.firestore();
 
     return(
         <>
@@ -16,86 +33,85 @@ function PerfilPessoa() {
                 <Formgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Nome</span>
+                            <input value={usuarioNome} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Cidade</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Cidade</span>
+                            <input value={usuarioCidade} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">CPF</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">CPF</span>
+                            <input value={usuarioCpf} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Telefone</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Telefone</span>
+                            <input value={usuarioTelefone} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Idade</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Idade</span>
+                            <input value={usuarioNascimento} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Endereço</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Endereço</span>
+                            <input value={usuarioEndereco} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group">
-                            <span class="input-group-text" id="inputGroup-sizing-default">E-mail</span>
-                            <input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                        <div className="input-group">
+                            <span className="input-group-text" id="inputGroup-sizing-default">E-mail</span>
+                            <input value={usuarioEmail} readOnly type="email" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
-                        <div class="input-group mb-3">
-                            <label class="input-group-text" for="inputGroupSelect01">Estado</label>
-                            <select class="form-select" id="inputGroupSelect01">
-                                <option selected>Selecione</option>
-                                <option value="1">AC</option>
-                                <option value="2">AL</option>
-                                <option value="3">AP</option>
-                                <option value="3">AM</option>
-                                <option value="3">BA</option>
-                                <option value="3">CE</option>
-                                <option value="3">DF</option>
-                                <option value="3">ES</option>
-                                <option value="3">GO</option>
-                                <option value="3">MA</option>
-                                <option value="3">MT</option>
-                                <option value="3">MS</option>
-                                <option value="3">MG</option>
-                                <option value="3">PA</option>
-                                <option value="3">PB</option>
-                                <option value="3">PR</option>
-                                <option value="3">PE</option>
-                                <option value="3">PI</option>
-                                <option value="3">RJ</option>
-                                <option value="3">RN</option>
-                                <option value="3">RS</option>
-                                <option value="3">RO</option>
-                                <option value="3">RR</option>
-                                <option value="3">SC</option>
-                                <option value="3">SP</option>
-                                <option value="3">SE</option>
-                                <option value="3">TO</option>
+                        <div className="input-group mb-3">
+                            <label className="input-group-text" htmlFor="inputGroupSelect01">Estado</label>
+                            <select className="form-select" id="inputGroupSelect01" defaultValue={usuarioEstado}>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
                             </select>
                         </div>
                     </Inputgroup>
@@ -106,7 +122,7 @@ function PerfilPessoa() {
 
                     <Fotopreview>
 
-                        <img class="preview-img" />
+                        <img className="preview-img" />
                         Aqui vai o preview da foto
 
                     </Fotopreview>
@@ -116,9 +132,9 @@ function PerfilPessoa() {
                 <H2style>Descrição</H2style>
 
                 <Descricao>
-                    <div class="input-group">
-                        <span class="input-group-text">Descrição</span>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                    <div className="input-group">
+                        <span className="input-group-text">Descrição</span>
+                        <textarea value={usuarioDescricao} readOnly className="form-control" aria-label="With textarea"></textarea>
                     </div>
                 </Descricao>
 
@@ -126,13 +142,13 @@ function PerfilPessoa() {
 
                     <Button>
 
-                        <button type="button" class="btn btn-primary">Editar Perfil</button>
+                        <button type="button" className="btn btn-primary">Editar Perfil</button>
                         
                     </Button>
 
                     <Button>
 
-                        <button type="button" class="btn btn-success">Ver Currículo</button>
+                        <button type="button" className="btn btn-success">Ver Currículo</button>
 
                     </Button>
 

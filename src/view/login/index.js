@@ -15,27 +15,51 @@ function Login() {
     const [msg, setMsg] = useState('');
     const dispatch = useDispatch();
 
-    function handleLogin(){        
-        // console.log("Entrou 1",email,senha);
+    const db = firebase.firestore();
+
+    function handleLogin() {        
         
         firebase.auth()
-                .signInWithEmailAndPassword(email, senha)
+                .signInWithEmailAndPassword(email, senha) //Verifica o login do usuario
                 .then(
-                    resultado => {
-                    setMsg('Sucesso');
-                    setTimeout( ()=> {
-                        dispatch({
-                            type:'LOG_IN',
-                            payload: {usuarioEmail: email}
-                        });
-                    }, 2000);
-                    // console.log(JSON.stringify(resultado));
-                    }
+                    //Buscar restante dos dados do usuario
+
+                    db.collection('usuarios').doc(email).get().then(
+                        
+                        (doc) => {
+                            if (doc.exists) {
+                                
+                                //Monta os dados do usuario de acordo com o que esta no firebase
+                                setTimeout( () => {
+                                    dispatch({
+                                        type:'LOG_IN',
+                                        payload: {
+
+                                            usuarioEmail: email,
+                                            usuarioNome: doc.data().nome,
+                                            usuarioCidade: doc.data().cidade,
+                                            usuarioCpf: doc.data().cpf,
+                                            usuarioEndereco: doc.data().endereco,
+                                            usuarioEstado: doc.data().estado,
+                                            usuarioTelefone: doc.data().telefone,
+                                            usuarioNascimento: doc.data().nascimento,
+                                            usuarioDescricao: doc.data().descricao
+                                        }
+                                    });
+                                }, 1500);
+                                
+                                setMsg('Sucesso');
+                            } else {
+                                console.log("Documento não encontrado");
+                            }
+                        }
+                    ).catch((error) => {
+                        console.log("Erro com o documento: ", error);
+                    })
                 )
                 .catch(
                     erro => {
                         setMsg('Erro');
-                        //console.log(JSON.stringify(erro));
                     }
                 )
         
@@ -43,7 +67,7 @@ function Login() {
 
     return(
         <>
-            {useSelector(state => state.user.usuarioLogado) === 1 ? <Redirect to="/cadastro" /> : null}
+            {useSelector(state => state.user.usuarioLogado) === 1 ? <Redirect to="/perfilPessoa" /> : null}
             <Wrapper>
                 <img src={logo} alt="Logo do site"></img>
 
@@ -66,18 +90,9 @@ function Login() {
 
                         <div className="opcoes-login text-white my-5">
                     
-                            { msg === "Sucesso" &&
-                            <span>
-                                WOW! <strong> Você está conectado! &#128526;</strong>
-                            </span>
-                            }
+                            { msg === "Sucesso" && <strong>Login realizado com sucesso</strong> }
                             <br/>
-                            {
-                                msg === "Erro" &&                    
-                            <span>
-                                Ops! <strong> Verifique se a senha ou o usuário estão corretos! &#128549;</strong>
-                            </span>
-                            }
+                            { msg === "Erro" && <strong>Verifique suas credenciais</strong> }
 
                         </div>
                     </form>
@@ -85,7 +100,7 @@ function Login() {
 
                 <Links>
 
-                    <Link to="/novousuario">Ainda não possui conta?</Link>
+                    <Link to="/cadastro">Ainda não possui conta?</Link>
                     <a href="#">Esqueceu sua senha?</a>
 
                 </Links>

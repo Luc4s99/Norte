@@ -5,7 +5,7 @@ import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Butt
 
 import firebase from '../../config/firebase'
 import 'firebase/auth';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 function CadastroPessoa() {
 
@@ -15,11 +15,12 @@ function CadastroPessoa() {
     const [cidade, setCidade] = useState('');
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [nascimento, setNascimento] = useState(0);
+    const [nascimento, setNascimento] = useState(new Date);
     const [endereco, setEndereco] = useState('');
     const [estado, setEstado] = useState('');
+    const [descricao, setDescricao] = useState('');
 
-    const storage = firebase.storage(); 
+    //const storage = firebase.storage(); 
     const db = firebase.firestore();
 
     function novoUsuario(){
@@ -29,26 +30,50 @@ function CadastroPessoa() {
             alert('E-mail e Senha são obrigatórios.');
             return;
         }        
-        alert("ola");
-        db.collection("usuarios").add({
-            email: email,
-            senha: senha,
-            telefone: telefone,
-            estado: estado,
-            nascimento: new Date(nascimento),
-            cidade: cidade,
-            cpf: cpf,
-            nome: nome,
-            empresa: 0,
-            candidato: 1,
-            endereco: endereco//,
-            //user:user
-        }).then( () => {
-            alert("sucessod");
-        }).catch( (res) => {
-            alert('Erro ao cadastrar!');    
+
+        firebase.auth()
+        .createUserWithEmailAndPassword(email,senha)
+        .then( () => {
+            
+            db.collection("usuarios").doc(email).set({
+
+                email: email,
+                telefone: telefone,
+                estado: estado,
+                nascimento: new Date(nascimento),
+                cidade: cidade,
+                cpf: cpf,
+                nome: nome,
+                endereco: endereco,
+                descricao: descricao
+            }).then( () => {
+
+                window.location.href = "http://localhost:3000/perfilPessoa";
+            }).catch(() => {
+
+                alert("Erro no cadastro, tente novamente!");
+            })
+
+        }).catch(erro => {
+            switch(erro.message){
+                case 'Password should be at least 6 characters':
+                    
+                    alert('Senha deve possuir pelo menos 6 caracteres');  
+                    break;
+                case 'The email address is already in use by another account.':
+                     
+                    alert('Este e-mail já está sendo utilizado');
+                    break; 
+                case 'The email address is badly formatted.':
+                    
+                    alert('Formato de e-mail errado');
+                    break;
+                default:
+                    
+                    alert('Não foi possível cadastrar');
+                    break;
+            }
         });
-        
     }
 
     return (
@@ -111,7 +136,8 @@ function CadastroPessoa() {
                         <Inputgroup>
                             <div className="input-group mb-3">
                                 <label className="input-group-text" htmlFor="inputGroupSelect01">Estado</label>
-                                <select onChange={e => setEstado(e.target.value)} className="form-select" defaultValue={'MG'} id="inputGroupSelect01">
+                                <select onChange={e => setEstado(e.target.value)} className="form-select" defaultValue={'Selecione'} id="inputGroupSelect01">
+                                    <option value="Selecione">Selecione</option>
                                     <option value="AC">AC</option>
                                     <option value="AL">AL</option>
                                     <option value="AP">AP</option>
@@ -169,7 +195,7 @@ function CadastroPessoa() {
                     <Descricao>
                         <div className="input-group">
                             <span className="input-group-text">Descrição</span>
-                            <textarea className="form-control" aria-label="With textarea"></textarea>
+                            <textarea onChange={e => setDescricao(e.target.value)} className="form-control" aria-label="With textarea"></textarea>
                         </div>
                     </Descricao>
 
