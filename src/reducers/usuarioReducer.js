@@ -2,7 +2,7 @@ const INITIAL_STATE = {
     usuarioLogado: 0,
     usuarioEmail: '',
     usuarioNome: '',
-    usuarioNascimento: new Date,
+    usuarioNascimento: new Date(),
     usuarioCidade: '',
     usuarioCpf: '',
     usuarioEstado: '',

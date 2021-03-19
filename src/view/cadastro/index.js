@@ -1,18 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import logo from '../../assets/images/logo.jpg'
 import empresa from '../../assets/images/empresa.jpg'
 import candidato from '../../assets/images/candidato.jpg'
 import Footer from '../../components/footer'
 
-import {Link, Redirect, Route, Switch} from 'react-router-dom';
-import{useSelector, useDispatch} from 'react-redux';
+import {Link, Route, Switch} from 'react-router-dom';
 
 import { Container, Logo, Label, Opcao, Voltar, Imagem, Botao } from './styles';
 import Navbar from '../../components/navbar';
-
-import CadastroPessoa from '../cadastroPessoa';
-import CadastroEmpresa from '../cadastroEmpresa';
 
 function cadastro() {
   return (

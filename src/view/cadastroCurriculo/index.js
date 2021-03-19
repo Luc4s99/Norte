@@ -1,11 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavBar from '../../components/navbar';
 import Footer from '../../components/footer';
 import { H2style, Tablediv, Box, H5style, Wrapper, Buttongroup } from './styles';
 import { PlusSquare } from '@styled-icons/boxicons-solid/PlusSquare';
 import { Trash } from '@styled-icons/boxicons-regular/Trash';
 
+import firebase from '../../config/firebase'
+import 'firebase/auth';
+import {useSelector} from 'react-redux';
+
 function CadastroCurriculo() {
+
+    const [experiencia, setExperiencia] = useState([]);
+    const [formacao, setFormacao] = useState([]);
+    const [habilidades, setHabilidades] = useState([]);
+    const [idiomas, setIdiomas] = useState([]);
+    const [referencias, setReferencias] = useState([]);
+    const [outrasAtividades, setOutrasAtividades] = useState([]);
+    const usuarioEmail = useSelector(state => state.user.usuarioEmail)
+
+    const db = firebase.firestore();
+
+    function novoCurriculo() {
+
+        db.collection('curriculos').doc(usuarioEmail).set({
+
+            experiencia: experiencia,
+            formacao: formacao,
+            habilidades: habilidades,
+            idiomas: idiomas,
+            referencias: referencias,
+            outrasAtividades: outrasAtividades,
+            usuarioEmail: usuarioEmail
+        }).then(() => {
+
+            window.location.href = "http://localhost:3000/cadastroCurriculo";
+        }).catch(() => {
+
+            alert('Erro no cadastro do currículo, tente novamente!');
+        })
+    }
 
     return(
         <>
@@ -26,13 +60,13 @@ function CadastroCurriculo() {
                                     <tr>
                                         <th scope="col">Experiência</th>
                                         <th scope="col">
-                                            <button><PlusSquare size="24" /></button> 
+                                        <button><PlusSquare size="24" /></button> 
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="col-md-1" scope="row">Aqui vai a experiência adicionada</td>
+                                        <td className="col-md-1" scope="row">Aqui vai a experiência adicionada</td>
                                         <td><button><Trash size="24" /></button></td>
                                     </tr>
                                 </tbody>
@@ -56,7 +90,7 @@ function CadastroCurriculo() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="col-md-1" scope="row">Aqui vai a formação adicionada</td>
+                                        <td className="col-md-1" scope="row">Aqui vai a formação adicionada</td>
                                         <td><button><Trash size="24" /></button></td>
                                     </tr>
                                 </tbody>
@@ -80,7 +114,7 @@ function CadastroCurriculo() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="col-md-1" scope="row">Aqui vai a habilidade adicionada</td>
+                                        <td className="col-md-1" scope="row">Aqui vai a habilidade adicionada</td>
                                         <td><button><Trash size="24" /></button></td>
                                     </tr>
                                 </tbody>
@@ -104,7 +138,7 @@ function CadastroCurriculo() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="col-md-1" scope="row">Aqui vai o idioma adicionado</td>
+                                        <td className="col-md-1" scope="row">Aqui vai o idioma adicionado</td>
                                         <td><button><Trash size="24" /></button></td>
                                     </tr>
                                 </tbody>
@@ -128,7 +162,7 @@ function CadastroCurriculo() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="col-md-1" scope="row">Aqui vai a referência adicionada</td>
+                                        <td className="col-md-1" scope="row">Aqui vai a referência adicionada</td>
                                         <td><button><Trash size="24" /></button></td>
                                     </tr>
                                 </tbody>
@@ -152,7 +186,7 @@ function CadastroCurriculo() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="col-md-1" scope="row">Aqui vai a atividade adicionada</td>
+                                        <td className="col-md-1" scope="row">Aqui vai a atividade adicionada</td>
                                         <td><button><Trash size="24" /></button></td>
                                     </tr>
                                 </tbody>
@@ -164,7 +198,7 @@ function CadastroCurriculo() {
 
                         <button type="button" className="btn btn-danger">Cancelar</button>
 
-                        <button type="button" class="btn btn-success">Continuar</button>
+                        <button onClick={novoCurriculo} type="button" className="btn btn-success">Continuar</button>
 
                     </Buttongroup>
 

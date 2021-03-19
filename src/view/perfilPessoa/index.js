@@ -2,9 +2,8 @@ import React from 'react';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Button, Wrapper } from './styles';
-import firebase from '../../config/firebase';
 import 'firebase/auth';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 function PerfilPessoa() {
 
@@ -17,10 +16,6 @@ function PerfilPessoa() {
     const usuarioNascimento = useSelector(state => state.user.usuarioNascimento)
     const usuarioTelefone = useSelector(state => state.user.usuarioTelefone)
     const usuarioDescricao = useSelector(state => state.user.usuarioDescricao)
-
-    console.log(usuarioEndereco)
-
-    const db = firebase.firestore();
 
     return(
         <>
@@ -122,7 +117,7 @@ function PerfilPessoa() {
 
                     <Fotopreview>
 
-                        <img className="preview-img" />
+                        <img alt="Pré-visualização da foto" className="preview-img" />
                         Aqui vai o preview da foto
 
                     </Fotopreview>
