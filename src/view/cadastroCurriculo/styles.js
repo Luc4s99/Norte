@@ -19,7 +19,7 @@ export const H5style = styled.h5`
     font-weight: bold;  
 `;
 
-export const Tablediv = styled.table`
+export const Tablediv = styled.div`
 
     margin: auto;
     width: 50%;
