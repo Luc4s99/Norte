@@ -5,7 +5,7 @@ import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Butt
 
 import firebase from '../../config/firebase'
 import 'firebase/auth';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 function CadastroPessoa() {
 
@@ -48,6 +48,7 @@ function CadastroPessoa() {
                 descricao: descricao
             }).then( () => {
 
+                //<Redirect to="/cadastroCurriculo" />
                 window.location.href = "http://localhost:3000/cadastroCurriculo";
             }).catch(() => {
 
