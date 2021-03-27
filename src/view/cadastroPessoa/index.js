@@ -3,7 +3,7 @@ import Footer from '../../components/footer';
 import Navbar from '../../components/navbar';
 import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Wrapper } from './styles';
 
-import firebase from '../../config/firebase'
+import firebase from '../../config/firebase';
 import 'firebase/auth';
 import { Link, Redirect } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ function CadastroPessoa() {
     const [cidade, setCidade] = useState('');
     const [cpf, setCpf] = useState('');
     const [telefone, setTelefone] = useState('');
-    const [nascimento, setNascimento] = useState(new Date);
+    const [nascimento, setNascimento] = useState(new Date());
     const [endereco, setEndereco] = useState('');
     const [estado, setEstado] = useState('');
     const [descricao, setDescricao] = useState('');
@@ -48,7 +48,8 @@ function CadastroPessoa() {
                 descricao: descricao
             }).then( () => {
 
-                //<Redirect to="/cadastroCurriculo" />
+                //Redirect não funcionando
+                //<Redirect exact to="/cadastroCurriculo" />
                 window.location.href = "http://localhost:3000/cadastroCurriculo";
             }).catch(() => {
 

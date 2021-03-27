@@ -1,9 +1,9 @@
 import React from 'react';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
-import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Button, Wrapper } from './styles';
+import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Wrapper } from './styles';
 import 'firebase/auth';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function PerfilPessoa() {
 
@@ -30,49 +30,49 @@ function PerfilPessoa() {
                     <Inputgroup>
                         <div className="input-group">
                             <span className="input-group-text" id="inputGroup-sizing-default">Nome</span>
-                            <input value={usuarioNome} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <input value={usuarioNome} readOnly type="text" className="form-control" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
                         <div className="input-group">
                             <span className="input-group-text" id="inputGroup-sizing-default">Cidade</span>
-                            <input value={usuarioCidade} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <input value={usuarioCidade} readOnly type="text" className="form-control" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
                         <div className="input-group">
                             <span className="input-group-text" id="inputGroup-sizing-default">CPF</span>
-                            <input value={usuarioCpf} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <input value={usuarioCpf} readOnly type="text" className="form-control" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
                         <div className="input-group">
                             <span className="input-group-text" id="inputGroup-sizing-default">Telefone</span>
-                            <input value={usuarioTelefone} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"/>
+                            <input value={usuarioTelefone} readOnly type="text" className="form-control" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
                         <div className="input-group">
                             <span className="input-group-text" id="inputGroup-sizing-default">Idade</span>
-                            <input value={usuarioNascimento} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <input value={usuarioNascimento} readOnly type="text" className="form-control" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
                         <div className="input-group">
                             <span className="input-group-text" id="inputGroup-sizing-default">Endereço</span>
-                            <input value={usuarioEndereco} readOnly type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <input value={usuarioEndereco} readOnly type="text" className="form-control" />
                         </div>
                     </Inputgroup>
 
                     <Inputgroup>
                         <div className="input-group">
                             <span className="input-group-text" id="inputGroup-sizing-default">E-mail</span>
-                            <input value={usuarioEmail} readOnly type="email" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                            <input value={usuarioEmail} readOnly type="email" className="form-control" />
                         </div>
                     </Inputgroup>
 
@@ -135,17 +135,10 @@ function PerfilPessoa() {
 
                 <Buttongroup>
 
-                    <Button>
+                    <button type="button" className="btn btn-primary">Editar Perfil</button>
 
-                        <button type="button" className="btn btn-primary">Editar Perfil</button>
-                        
-                    </Button>
+                    <button type="button" className="btn btn-success">Ver Currículo</button>
 
-                    <Button>
-
-                        <button type="button" className="btn btn-success">Ver Currículo</button>
-
-                    </Button>
 
                 </Buttongroup>
 

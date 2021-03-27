@@ -7,6 +7,7 @@ import { PlusSquare } from '@styled-icons/boxicons-solid/PlusSquare';
 import firebase from '../../config/firebase'
 import 'firebase/auth';
 import {useSelector} from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 function CadastroCurriculo() {
 
@@ -113,6 +114,8 @@ function CadastroCurriculo() {
 
     function novoCurriculo() {
 
+        console.log('chamou');
+
         db.collection('curriculos').doc(usuarioEmail).set({
 
             experiencia: experiencia,
@@ -124,11 +127,14 @@ function CadastroCurriculo() {
             usuarioEmail: usuarioEmail
         }).then(() => {
 
+            //Redirect não está funcionando
+            //<Redirect to="/perfilPessoa" />
             window.location.href = "http://localhost:3000/perfilPessoa";
         }).catch(() => {
 
             alert('Erro no cadastro do currículo, tente novamente!');
         })
+        
     }
 
     return(

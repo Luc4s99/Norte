@@ -3,155 +3,62 @@ import Navbar from '../../components/navbar'
 import Footer from '../../components/footer'
 import { Tablediv, Wrapper, H2style, Formgroup, Inputgroup, Fotoinput, Fotopreview, Buttongroup, Descricao, Interesses } from './styles';
 
-import firebase from '../../config/firebase'
 import 'firebase/auth';
 import { PlusSquare } from '@styled-icons/boxicons-solid/PlusSquare';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function CadastroEmpresa() {
     
-    var aux = '';
-    const [nomeFantasia, setNomeFantasia] = useState('');
-    const [cnpj, setCnpj] = useState('');
-    const [razaoSocial, setRazaoSocial] = useState('');
-    const [emailEmpresa, setEmailEmpresa] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [estado, setEstado] = useState('');
-    const [endereco, setEndereco] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [senha, setSenha] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [interesses, setInteresses] = useState([]);
-    const dispatch = useDispatch();
+    const nomeFantasia = useSelector(state => state.emp.nomeFantasia)
+    const cnpj = useSelector(state => state.emp.cnpj)
+    const razaoSocial = useSelector(state => state.emp.razaoSocial)
+    const emailEmpresa = useSelector(state => state.emp.emailEmpresa)
+    const empresaSenha = useSelector(state => state.emp.empresaSenha)
+    const empresaCidade = useSelector(state => state.emp.empresaCidade)
+    const empresaEstado = useSelector(state => state.emp.empresaEstado)
+    const empresaEndereco = useSelector(state => state.emp.empresaEndereco)
+    const empresaTelefone = useSelector(state => state.emp.empresaTelefone)
+    const interesses = useSelector(state => state.emp.interesses)
+    const empresaDescricao = useSelector(state => state.emp.empresaDescricao)
 
-    const db = firebase.firestore();
+    function editarEmpresa() {
 
-    function adicionarInteresses() {
-        
-        setInteresses([...interesses, aux]);
     }
 
-    function excluirInteresses(index) {
-
-        const list =[...interesses];
-
-        list.splice(index, 1);
-
-        setInteresses(list);
-    }
-
-    function novaEmpresa() {
-
-        if(!emailEmpresa || !senha || emailEmpresa === '' || senha === ''){
-            
-            alert('E-mail e Senha são obrigatórios.');
-            return;
-        }        
-
-        firebase.auth()
-        .createUserWithEmailAndPassword(emailEmpresa,senha)
-        .then( () => {
-            
-            db.collection("empresas").doc(emailEmpresa).set({
-
-                email: emailEmpresa,
-                telefone: telefone,
-                estado: estado,
-                cidade: cidade,
-                cnpj: cnpj,
-                razaoSocial: razaoSocial,
-                endereco: endereco,
-                descricao: descricao,
-                nomeFantasia: nomeFantasia,
-                interesses: interesses,
-                senha: senha
-
-            }).then( () => {
-                
-                //Armazena os dados no redux
-                dispatch({
-                    type:'LOG_IN',
-                    payload: {
-
-                        emailEmpresa: emailEmpresa,
-                        empresaTelefone: telefone,
-                        empresaEstado: estado,
-                        empresaCidade: cidade,
-                        cnpj: cnpj,
-                        razaoSocial: razaoSocial,
-                        empresaEndereco: endereco,
-                        empresaDescricao: descricao,
-                        nomeFantasia: nomeFantasia,
-                        interesses: interesses,
-                        empresaSenha: senha
-
-                    }
-                });
-
-                //Redirect não funcionando
-                //<Redirect exact to="/cadastroCurriculo" />
-                window.location.href = "http://localhost:3000/perfilEmpresa";
-            }).catch(() => {
-
-                alert("Erro no cadastro, tente novamente!");
-            })
-
-        }).catch(erro => {
-            switch(erro.message){
-                case 'Password should be at least 6 characters':
-                    
-                    alert('Senha deve possuir pelo menos 6 caracteres');  
-                    break;
-                case 'The email address is already in use by another account.':
-                     
-                    alert('Este e-mail já está sendo utilizado');
-                    break; 
-                case 'The email address is badly formatted.':
-                    
-                    alert('Formato de e-mail errado');
-                    break;
-                default:
-                    
-                    alert('Não foi possível cadastrar');
-                    break;
-            }
-        });
-    }
-    
     return (
         <>
             <Navbar/>
                 <Wrapper>
 
-                    <H2style>Cadastro de Empresa</H2style>
+                    <H2style>Perfil da Empresa</H2style>
 
                     <Formgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Nome Fantasia</span>
-                                <input type="text" className="form-control" onChange={e => setNomeFantasia(e.target.value)} />
+                                <input type="text" className="form-control" value={nomeFantasia} readOnly />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Cidade</span>
-                                <input type="text" className="form-control" onChange={e => setCidade(e.target.value)} />
+                                <input type="text" className="form-control" value={empresaCidade} readOnly />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">CNPJ</span>
-                                <input type="text" className="form-control" onChange={e => setCnpj(e.target.value)} />
+                                <input type="text" className="form-control" value={cnpj} readOnly />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group mb-3">
                                 <label className="input-group-text" htmlFor="inputGroupSelect01">Estado</label>
-                                <select onChange={e => setEstado(e.target.value)} className="form-select" defaultValue={'Selecione'} id="inputGroupSelect01">
+                                <select readOnly className="form-select" defaultValue={empresaEstado} id="inputGroupSelect01">
                                     <option value="Selecione">Selecione</option>
                                     <option value="AC">AC</option>
                                     <option value="AL">AL</option>
@@ -187,35 +94,35 @@ function CadastroEmpresa() {
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Razão Social</span>
-                                <input type="text" className="form-control" onChange={e => setRazaoSocial(e.target.value)} />
+                                <input type="text" className="form-control" value={razaoSocial} readOnly />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Endereço</span>
-                                <input type="text" className="form-control" onChange={e => setEndereco(e.target.value)} />
+                                <input type="text" className="form-control" value={empresaEndereco} readOnly />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">E-mail</span>
-                                <input type="text" className="form-control" onChange={e => setEmailEmpresa(e.target.value)} />
+                                <input type="text" className="form-control" value={emailEmpresa} readOnly />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Telefone</span>
-                                <input type="email" className="form-control" onChange={e => setTelefone(e.target.value)} />
+                                <input type="email" className="form-control" value={empresaTelefone} readOnly />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Senha</span>
-                                <input type="password" className="form-control" onChange={e => setSenha(e.target.value)} />
+                                <input type="password" className="form-control" value={empresaSenha} readOnly />
                             </div>
                         </Inputgroup>                         
                     
@@ -243,17 +150,17 @@ function CadastroEmpresa() {
                                     <tr>
                                         <th scope="col">Interesses</th>
                                         <th scope="col">
-                                            <button type="button" id="adicionaInteresses" className="btn btn-secondary" data-toggle="modal" data-target="#modalInteresses">
+                                            <button disabled="true" type="button" id="adicionaInteresses" className="btn btn-secondary" data-toggle="modal" data-target="#modalInteresses">
                                                 <PlusSquare size="24" />
                                             </button>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody id="corpoTabela">
-                                    {interesses.map((inte, index) => {
-                                        return(<tr key={index}>
+                                    {interesses.map((inte) => {
+                                        return(<tr>
                                         <td className="col-md-1" scope="row">{inte}</td>
-                                        <td><button onClick={() => excluirInteresses(index)} type="button" className="btn btn-outline-danger">Deletar</button></td>
+                                        <td><button disabled="true" type="button" className="btn btn-outline-danger">Deletar</button></td>
                                         </tr>)    
                                     })}
                                 </tbody>
@@ -266,7 +173,7 @@ function CadastroEmpresa() {
                     <Descricao>
                         <div className="input-group">
                             <span className="input-group-text">Descrição</span>
-                            <textarea onChange={e => setDescricao(e.target.value)} className="form-control" aria-label="With textarea"></textarea>
+                            <textarea value={empresaDescricao} readOnly className="form-control" aria-label="With textarea"></textarea>
                         </div>
                     </Descricao>
 
@@ -274,11 +181,11 @@ function CadastroEmpresa() {
 
                         <button type="button" className="btn btn-danger">Cancelar</button>
 
-                        <button type="button" className="btn btn-success" onClick={novaEmpresa}>Continuar</button>
+                        <button type="button" className="btn btn-success" onClick={editarEmpresa}>Editar</button>
 
                     </Buttongroup>
 
-                    {/* Modal Interesses */}
+                    {/* Modal Interesses 
                     <div className="modal fade" id="modalInteresses" tabIndex="-1" aria-hidden="true">
                         <div className="modal-dialog">
                             <div className="modal-content">
@@ -298,7 +205,7 @@ function CadastroEmpresa() {
 
                             </div>
                         </div>
-                    </div>
+                    </div>*/}
 
                 </Wrapper>
 
