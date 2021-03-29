@@ -27,7 +27,7 @@ function empresaReducer (state = INITIAL_STATE, action){
                                  empresaTelefone: action.payload.empresaTelefone,
                                  interesses: action.payload.interesses,
                                  empresaDescricao: action.payload.empresaDescricao
-
+ 
                             }
        case 'LOG_OUT': return {...state,
                                 nomeFantasia: '',

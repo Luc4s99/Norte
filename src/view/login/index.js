@@ -14,27 +14,37 @@ function Login() {
     const [senha, setSenha] = useState('');
     const [msg, setMsg] = useState('');
     const dispatch = useDispatch();
-
+    
     const db = firebase.firestore();
+
+    const [tipoUsuario, setTipoUsuario] = useState('');
+
+    function onChangeValue(event){
+        setTipoUsuario(event.target.value);
+    }
+
 
     function handleLogin() {        
         
-        firebase.auth()
+        if (tipoUsuario === 'pessoa'){
+            
+            firebase.auth()
                 .signInWithEmailAndPassword(email, senha) //Verifica o login do usuario
-                .then(
+                .then(                    
                     //Buscar restante dos dados do usuario
-
                     db.collection('usuarios').doc(email).get().then(
                         
                         (doc) => {
+                            
                             if (doc.exists) {
                                 
+                                setMsg('Sucesso');
+
                                 //Monta os dados do usuario de acordo com o que esta no firebase
                                 setTimeout( () => {
                                     dispatch({
                                         type:'LOG_IN',
                                         payload: {
-
                                             usuarioEmail: email,
                                             usuarioNome: doc.data().nome,
                                             usuarioCidade: doc.data().cidade,
@@ -46,28 +56,81 @@ function Login() {
                                             usuarioDescricao: doc.data().descricao
                                         }
                                     });
+                                    window.location.href = "./perfilPessoa";
                                 }, 1500);
-                                
-                                setMsg('Sucesso');
+                       
                             } else {
                                 console.log("Documento não encontrado");
                             }
                         }
                     ).catch((error) => {
                         console.log("Erro com o documento: ", error);
-                    })
+                    })                        
                 )
                 .catch(
-                    erro => {
-                        setMsg('Erro');
+                    (error) => {
+                        console.log("Deu ruim no login usuario");
+                        setMsg("Erro");
                     }
+                );
+
+        } else if (tipoUsuario === 'empresa') {
+
+            firebase.auth()
+                .signInWithEmailAndPassword(email, senha) //Verifica o login do usuario
+                .then(
+                    //Buscar restante dos dados do usuario
+                    db.collection('empresas').doc(email).get().then(
+                        
+                        (doc) => {
+                            if (doc.exists) {
+                                
+                                setMsg('Sucesso');
+
+                                //Monta os dados do usuario de acordo com o que esta no firebase
+                                setTimeout( () => {
+                                    dispatch({
+                                        type:'LOG_IN',
+                                        payload: {
+                                            usuarioEmail: email,
+                                            nomeFantasia: doc.data().nomeFantasia,
+                                            cnpj: doc.data().cnpj,
+                                            razaoSocial: doc.data().razaoSocial,
+                                            emailEmpresa: doc.data().email,
+                                            empresaSenha: doc.data().senha,
+                                            empresaCidade: doc.data().cidade,
+                                            empresaEstado: doc.data().estado,
+                                            empresaEndereco: doc.data().endereco,
+                                            empresaTelefone: doc.data().telefone,
+                                            interesses: doc.data().interesses,
+                                            empresaDescricao: doc.data().descricao
+                                        }
+                                    });
+                                    window.location.href = "./perfilEmpresa";
+                                }, 1500);
+                                
+                            } else {
+                                console.log("Documento não encontrado");
+                            }
+                        }
+                    ).catch((error) => {
+                        console.log("Erro com o documento: ", error);
+                    })                        
                 )
+                .catch(
+                    (error) => {
+                        console.log("Deu ruim no login empresa");
+                        setMsg("Erro");
+                    }
+                );
+
+        } else setMsg("tipoUsuario");        
         
     }
 
     return(
         <>
-            {useSelector(state => state.user.usuarioLogado) === 1 ? <Redirect to="/perfilPessoa" /> : null}
+            {/* {useSelector(state => state.user.usuarioLogado) === 1 ? <Redirect to="/perfilPessoa" /> : null} */}
             <Wrapper>
                 <img src={logo} alt="Logo do site"></img>
 
@@ -86,13 +149,21 @@ function Login() {
                             <input placeholder="Digite sua senha..." type="password" className="form-control" id="inputPassword" onChange={e => setSenha(e.target.value)} />
                         </div>
 
+                        <div onChange={onChangeValue}>
+                            <label htmlFor="pessoa">Pessoa</label>
+                            <input type="radio" id="pessoa" name="tipoUsuario" value="pessoa"></input>
+
+                            <label htmlFor="empresa">Empresa</label>
+                            <input type="radio" id="empresa" name="tipoUsuario" value="empresa"></input>
+                        </div>
+
                         <button className="btn btn-primary" type="button" onClick={handleLogin}>Entrar</button>
 
                         <div className="opcoes-login text-white my-5">
                     
                             { msg === "Sucesso" && <strong>Login realizado com sucesso</strong> }
-                            <br/>
                             { msg === "Erro" && <strong>Verifique suas credenciais</strong> }
+                            { msg === "tipoUsuario" && <strong>Selecione o tipo de usuario!</strong>}
 
                         </div>
                     </form>
