@@ -4,6 +4,7 @@ import Footer from '../../components/footer';
 import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Buttongroup, Wrapper } from './styles';
 import 'firebase/auth';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function PerfilPessoa() {
 
@@ -137,9 +138,8 @@ function PerfilPessoa() {
 
                     <button type="button" className="btn btn-primary">Editar Perfil</button>
 
-                    <button type="button" className="btn btn-success">Ver Currículo</button>
-
-
+                    <Link to="/perfilCurriculo" type="button" className="btn btn-success"> Ver Currículo </Link>
+                    
                 </Buttongroup>
 
             </Wrapper>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../../components/navbar'
 import Footer from '../../components/footer'
 import { Tablediv, Wrapper, H2style, Formgroup, Inputgroup, Fotoinput, Fotopreview, Buttongroup, Descricao, Interesses } from './styles';
@@ -132,7 +132,7 @@ function CadastroEmpresa() {
 
                         <Fotopreview>
 
-                            <img className="preview-img" />
+                            <img className="preview-img" alt="Logo Empresa"/>
 
                         </Fotopreview>
 
@@ -159,7 +159,7 @@ function CadastroEmpresa() {
                                 <tbody id="corpoTabela">
                                     {interesses.map((inte) => {
                                         return(<tr>
-                                        <td className="col-md-1" scope="row">{inte}</td>
+                                        <td className="col-md-1">{inte}</td>
                                         <td><button disabled="true" type="button" className="btn btn-outline-danger">Deletar</button></td>
                                         </tr>)    
                                     })}

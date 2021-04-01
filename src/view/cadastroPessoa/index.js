@@ -5,7 +5,7 @@ import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Butt
 
 import firebase from '../../config/firebase';
 import 'firebase/auth';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function CadastroPessoa() {
 
@@ -184,7 +184,7 @@ function CadastroPessoa() {
 
                         <Fotopreview>
 
-                            <img className="preview-img" />
+                            <img className="preview-img" alt="Foto da Pessoa"/>
 
                         </Fotopreview>
 

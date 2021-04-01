@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import { Bodymargin } from './styles';
-import { Bell } from '@styled-icons/entypo/Bell';
+// import { Bell } from '@styled-icons/entypo/Bell';
 
 function Navbar() {
 
@@ -22,12 +22,13 @@ function Navbar() {
             {logout === 1 ? <Redirect to ="/login" /> : null}
             <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">Norte</a>
+                    {/* <a className="navbar-brand" href="/">Norte</a> */}
+                    <Link to="/">Norte</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        {/* <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="#">Função 1</a>
                             </li>
@@ -50,17 +51,17 @@ function Navbar() {
                             <button className="btn btn-outline-success" type="submit">Search</button>
                         </form>
 
-                        {/*Verificar como fazer a modal funcionar */}
+                        
                         <li className="nav-item">
                             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
                                 <Bell size="36" />
                             </button>
-                        </li>
+                        </li> */}
 
                         { useSelector(state => state.user.usuarioLogado) === 1 &&
                                                           
                             <li className="nav-item">
-                                <Link className="nav-link" to="#" onClick={handleLogout} >Sair <span className="sr-only">(current)</span> </Link>
+                                <button onClick={handleLogout} >Sair <span className="sr-only">(current)</span> </button>
                             </li>                    
                             
                         }

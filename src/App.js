@@ -9,6 +9,7 @@ import PerfilPessoa from "./view/perfilPessoa";
 import CadastroCurriculo from "./view/cadastroCurriculo";
 import Home from './view/home';
 import PerfilEmpresa from './view/perfilEmpresa';
+import PerfilCurriculo from './view/perfilCurriculo';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/cadastroCurriculo" component={CadastroCurriculo} />
         <Route exact path="/perfilPessoa" component={PerfilPessoa} />
         <Route exact path="/perfilEmpresa" component={PerfilEmpresa} />
+        <Route exact path="/perfilCurriculo" component={PerfilCurriculo} />
       </BrowserRouter>
       <GlobalStyles />
     </>

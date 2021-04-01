@@ -225,7 +225,7 @@ function CadastroEmpresa() {
 
                         <Fotopreview>
 
-                            <img className="preview-img" />
+                            <img className="preview-img" alt="Logo da Empresa"/>
 
                         </Fotopreview>
 
@@ -252,7 +252,7 @@ function CadastroEmpresa() {
                                 <tbody id="corpoTabela">
                                     {interesses.map((inte, index) => {
                                         return(<tr key={index}>
-                                        <td className="col-md-1" scope="row">{inte}</td>
+                                        <td className="col-md-1">{inte}</td>
                                         <td><button onClick={() => excluirInteresses(index)} type="button" className="btn btn-outline-danger">Deletar</button></td>
                                         </tr>)    
                                     })}

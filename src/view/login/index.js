@@ -5,8 +5,8 @@ import logo from '../../assets/images/logo.jpg';
 
 import firebase from '../../config/firebase';
 import 'firebase/auth';
-import {Link, Redirect} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 
 function Login() {
 
@@ -172,7 +172,7 @@ function Login() {
                 <Links>
 
                     <Link to="/cadastro">Ainda não possui conta?</Link>
-                    <a href="#">Esqueceu sua senha?</a>
+                    <Link to="/">Esqueceu sua senha?</Link>
 
                 </Links>
 

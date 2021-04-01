@@ -7,7 +7,7 @@ import { PlusSquare } from '@styled-icons/boxicons-solid/PlusSquare';
 import firebase from '../../config/firebase'
 import 'firebase/auth';
 import {useSelector} from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 function CadastroCurriculo() {
 
@@ -165,7 +165,7 @@ function CadastroCurriculo() {
                                 <tbody id="corpoTabela">
                                     {experiencia.map((exp, index) => {
                                         return(<tr key={index}>
-                                        <td className="col-md-1" scope="row">{exp}</td>
+                                        <td className="col-md-1">{exp}</td>
                                         <td><button onClick={() => excluirExperiencia(index)} type="button" className="btn btn-outline-danger">Deletar</button></td>
                                         </tr>)    
                                     })}
@@ -193,7 +193,7 @@ function CadastroCurriculo() {
                                 <tbody>
                                     {formacao.map((forma, index) => {
                                         return(<tr key={index}>
-                                        <td className="col-md-1" scope="row">{forma}</td>
+                                        <td className="col-md-1">{forma}</td>
                                         <td><button onClick={() => excluirFormacao(index)} type="button" className="btn btn-outline-danger">Deletar</button></td>
                                         </tr>)    
                                     })}
@@ -221,7 +221,7 @@ function CadastroCurriculo() {
                                 <tbody>
                                     {habilidades.map((habi, index) => {
                                         return(<tr key={index}>
-                                        <td className="col-md-1" scope="row">{habi}</td>
+                                        <td className="col-md-1">{habi}</td>
                                         <td><button onClick={() => excluirHabilidades(index)} type="button" className="btn btn-outline-danger">Deletar</button></td>
                                         </tr>)    
                                     })}
@@ -249,7 +249,7 @@ function CadastroCurriculo() {
                                 <tbody>
                                     {idiomas.map((idi, index) => {
                                             return(<tr key={index}>
-                                            <td className="col-md-1" scope="row">{idi}</td>
+                                            <td className="col-md-1">{idi}</td>
                                             <td><button onClick={() => excluirIdiomas(index)} type="button" className="btn btn-outline-danger">Deletar</button></td>
                                             </tr>)    
                                     })}
@@ -277,7 +277,7 @@ function CadastroCurriculo() {
                                 <tbody>
                                     {referencias.map((ref, index) => {
                                         return(<tr key={index}>
-                                        <td className="col-md-1" scope="row">{ref}</td>
+                                        <td className="col-md-1">{ref}</td>
                                         <td><button onClick={() => excluirReferencias(index)} type="button" className="btn btn-outline-danger">Deletar</button></td>
                                         </tr>)    
                                     })}
@@ -305,7 +305,7 @@ function CadastroCurriculo() {
                                 <tbody>
                                     {outrasAtividades.map((oAtiv, index) => {
                                         return(<tr key={index}>
-                                        <td className="col-md-1" scope="row">{oAtiv}</td>
+                                        <td className="col-md-1">{oAtiv}</td>
                                         <td><button onClick={() => excluirOutrasAtividades(index)} type="button" className="btn btn-outline-danger">Deletar</button></td>
                                         </tr>)    
                                     })}
