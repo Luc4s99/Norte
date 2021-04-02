@@ -3,6 +3,7 @@ import NavBar from '../../components/navbar';
 import Footer from '../../components/footer';
 import { H2style, Tablediv, Box, H5style, Wrapper, Buttongroup } from './styles';
 import { PlusSquare } from '@styled-icons/boxicons-solid/PlusSquare';
+import { Link } from 'react-router-dom';
 
 import firebase from '../../config/firebase'
 import 'firebase/auth';
@@ -113,8 +114,6 @@ function CadastroCurriculo() {
     }
 
     function novoCurriculo() {
-
-        console.log('chamou');
 
         db.collection('curriculos').doc(usuarioEmail).set({
 
@@ -316,9 +315,10 @@ function CadastroCurriculo() {
 
                     <Buttongroup>
 
-                        <button type="button" className="btn btn-danger">Cancelar</button>
-
-                        <button onClick={novoCurriculo} type="button" className="btn btn-success">Continuar</button>
+                        <Link to="/perfilPessoa" type="button" className="btn btn-warning">Pular</Link>
+                        {/* <button type="button" className="btn btn-danger">Cancelar</button> */}
+                        <Link to="/perfilPessoa" onClick={novoCurriculo} type="button" className="btn btn-success">Concluir</Link>
+                        {/* <button onClick={novoCurriculo} type="button" className="btn btn-success">Continuar</button> */}
 
                     </Buttongroup>
 

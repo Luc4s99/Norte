@@ -46,7 +46,7 @@ export const Buttongroup = styled.div`
     margin-right: auto;    
     margin-bottom: 30px;
     background-color: #67aaaf;
-    width: 300px;
+    width: 50%;
     border-radius: 10px;
     padding: 15px;
 

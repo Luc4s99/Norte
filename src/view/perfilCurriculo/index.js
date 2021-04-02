@@ -7,6 +7,7 @@ import { PlusSquare } from '@styled-icons/boxicons-solid/PlusSquare';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 import {useSelector} from 'react-redux';
+import { Link } from 'react-router-dom';
 // import { Redirect } from 'react-router-dom';
 
 function PerfilCurriculo() {
@@ -20,25 +21,30 @@ function PerfilCurriculo() {
     
     const usuarioEmail = useSelector(state => state.user.usuarioEmail)    
     const db = firebase.firestore();
-    var curriculo = db.collection("curriculos").doc(usuarioEmail);  
-
+    
     useEffect(()=>{
-        curriculo.get().then((doc)=>{
-            if(doc.exists){
-               
-                setExperiencia([...experiencia,doc.data().experiencia])
-                setFormacao([...formacao,doc.data().formacao])
-                setHabilidades([...habilidades,doc.data().habilidades])
-                setIdiomas([...idiomas,doc.data().idiomas])
-                setReferencias([...referencias,doc.data().referencias])
-                setOutraAtividades([...outrasAtividades,doc.data().outrasAtividades])
-                console.log(doc.data());
-            } else{
-                console.log("Este documento não existe.");
-            }
-        }).catch((error)=>{
-            console.log("Erro ao tentar recuperar curriculo:",error);
-        });
+
+        if(usuarioEmail === null){
+            window.location.href = "http://localhost:3000/login";
+        } else {
+            db.collection("curriculos").doc(usuarioEmail).get().then((doc)=>{
+                if(doc.exists){
+                   
+                    setExperiencia([...experiencia,doc.data().experiencia])
+                    setFormacao([...formacao,doc.data().formacao])
+                    setHabilidades([...habilidades,doc.data().habilidades])
+                    setIdiomas([...idiomas,doc.data().idiomas])
+                    setReferencias([...referencias,doc.data().referencias])
+                    setOutraAtividades([...outrasAtividades,doc.data().outrasAtividades])
+                    console.log(doc.data());
+                } else{
+                    console.log("Este documento não existe.");
+                }
+            }).catch((error)=>{
+                console.log("Erro ao tentar recuperar curriculo:",error);
+            });
+        }
+        
     },[])   
 
     return(
@@ -48,11 +54,11 @@ function PerfilCurriculo() {
             
             <Wrapper>
                 
-                <H2style>Agora vamos cadastrar seu currículo!</H2style>
+                <H2style>Currículo</H2style>
 
                 <Box>
 
-                    <H5style>Vamos começar com suas experiências:</H5style>
+                    <H5style>Experiências:</H5style>
 
                     <Tablediv>
                         <table className="table table-dark table-bordered">
@@ -80,7 +86,7 @@ function PerfilCurriculo() {
 
                 <Box>
 
-                    <H5style>Agora nos conte sobre sua formação:</H5style>
+                    <H5style>Formação:</H5style>
 
                     <Tablediv>
                         <table className="table table-dark table-bordered">
@@ -108,7 +114,7 @@ function PerfilCurriculo() {
 
                 <Box>
 
-                    <H5style>E suas habilidades?</H5style>
+                    <H5style>Habilidades:</H5style>
 
                     <Tablediv>
                         <table className="table table-dark table-bordered">
@@ -136,7 +142,7 @@ function PerfilCurriculo() {
 
                 <Box>
 
-                    <H5style>Seus idiomas:</H5style>
+                    <H5style>Idiomas:</H5style>
 
                     <Tablediv>
                         <table className="table table-dark table-bordered">
@@ -170,7 +176,7 @@ function PerfilCurriculo() {
                         <table className="table table-dark table-bordered">
                             <thead>
                                 <tr>
-                                    <th scope="col">Referências</th>
+                                    <th scope="col">Referências:</th>
                                     <th scope="col">
                                         <button disabled={true} type="button" className="btn btn-secondary" data-toggle="modal" data-target="#modalReferencias">
                                             <PlusSquare size="24" />
@@ -192,7 +198,7 @@ function PerfilCurriculo() {
 
                 <Box>
 
-                    <H5style>Adicione aqui atividades que julga importante:</H5style>
+                    <H5style>Outras Atividades:</H5style>
 
                     <Tablediv>
                         <table className="table table-dark table-bordered">
@@ -220,9 +226,8 @@ function PerfilCurriculo() {
 
                 <Buttongroup>
 
-                    <button type="button" className="btn btn-danger">Cancelar</button>
-
-                    <button type="button" className="btn btn-success">Continuar</button>
+                    <Link to="/perfilPessoa" type="button" className="btn btn-danger"> Voltar para o Perfil </Link>
+                    <Link to="/" type="button" className="btn btn-success"> Editar Cúrriculo </Link>
 
                 </Buttongroup>
 

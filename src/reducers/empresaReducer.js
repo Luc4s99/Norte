@@ -30,17 +30,17 @@ function empresaReducer (state = INITIAL_STATE, action){
  
                             }
        case 'LOG_OUT': return {...state,
-                                nomeFantasia: '',
-                                cnpj: '',
-                                razaoSocial: '',
-                                emailEmpresa: '',
-                                senha: '',
-                                cidade: '',
-                                estado: '',
-                                endereco: '',
-                                telefone: '',
+                                nomeFantasia: null,
+                                cnpj: null,
+                                razaoSocial: null,
+                                emailEmpresa: null,
+                                empresaSenha: null,
+                                empresaCidade: null,
+                                empresaEstado: null,
+                                empresaEndereco: null,
+                                empresaTelefone: null,
                                 interesses: [],
-                                descricao: ''
+                                empresaDescricao: null
                                 }                          
     }
 

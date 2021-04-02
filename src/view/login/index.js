@@ -129,8 +129,7 @@ function Login() {
     }
 
     return(
-        <>
-            {/* {useSelector(state => state.user.usuarioLogado) === 1 ? <Redirect to="/perfilPessoa" /> : null} */}
+        <>            
             <Wrapper>
                 <img src={logo} alt="Logo do site"></img>
 

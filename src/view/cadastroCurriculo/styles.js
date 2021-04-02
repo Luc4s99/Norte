@@ -50,4 +50,8 @@ export const Buttongroup = styled.div`
     border-radius: 10px;
     padding: 15px;
 
+    > .btn{
+      width:8rem;  
+    }
+
 `;
