@@ -30,4 +30,14 @@ export default createGlobalStyle`
     --primary: #3B989E;
     --white: #D9D9D9;
   }
+
+  .table>tbody>tr>td,
+  .table>tbody>tr>th,
+  .table>tfoot>tr>td,
+  .table>tfoot>tr>th,
+  .table>thead>tr>td,
+  .table>thead>tr>th
+  {
+    vertical-align: middle;
+  }
 `;

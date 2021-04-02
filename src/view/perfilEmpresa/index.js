@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 function CadastroEmpresa() {
 
     const emailEmpresa = useSelector(state => state.emp.emailEmpresa)
-
+    console.log(useSelector(state => state.emp))
     // const nomeFantasia = useSelector(state => state.emp.nomeFantasia)
     // const cnpj = useSelector(state => state.emp.cnpj)
     // const razaoSocial = useSelector(state => state.emp.razaoSocial)
@@ -42,14 +42,14 @@ function CadastroEmpresa() {
     const [placeholderEmpresaTelefone, setPlaceholderEmpresaTelefone] = useState('');
     const [placeholderInteresses, setPlaceholderInteresses] = useState('');
     const [placeholderDescricao, setPlaceholderDescricao] = useState('');
-    
+        
     useEffect(()=>{        
         if(emailEmpresa === null){
             window.location.href = "http://localhost:3000/login";
         } else {
             
             db.collection("empresas").doc(emailEmpresa).get().then((doc)=>{
-            
+                
                 setEmpresaCidade(doc.data().cidade);
                 setCnpj(doc.data().cnpj);
                 setRazaoSocial(doc.data().razaoSocial);
@@ -62,9 +62,12 @@ function CadastroEmpresa() {
 
                 setAlterou(!alterou);
 
+                console.log("->",doc.data())
+
             }).catch((error)=>{
-                console.log("Erro ao tentar recuperar informações do usuário:",error);
+                console.log("Erro ao tentar recuperar informações da empresa:",error);
             });
+            
         }
     },[]) 
 
@@ -80,7 +83,7 @@ function CadastroEmpresa() {
         setPlaceholderInteresses(...interesses);
         setPlaceholderDescricao(empresaDescricao);
         
-
+        console.log(nomeFantasia, cnpj, razaoSocial, empresaCidade, empresaEstado, empresaEndereco, empresaTelefone, interesses, empresaDescricao)
     },[alterou])
 
     function handleChangeNomeFantasia(event){
@@ -121,8 +124,27 @@ function CadastroEmpresa() {
     
     function salvarAlteracoes(){
         
+        db.collection("empresas").doc(emailEmpresa).get().then((doc)=>{
+
+            setEmpresaCidade(doc.data().cidade);
+            setCnpj(doc.data().cnpj);
+            setRazaoSocial(doc.data().razaoSocial);
+            setNomeFantasia(doc.data().nomeFantasia);
+            setEmpresaEstado(doc.data().estado);
+            setEmpresaEndereco(doc.data().endereco);
+            setEmpresaTelefone(doc.data().telefone);                
+            setEmpresaDescricao(doc.data().descricao);
+            setInteresses([...interesses, doc.data().interesses])
+
+            setAlterou(!alterou);
+
+        }).catch(()=>{
+            console.log("Erro na edição, tente novamente!");
+        });
+
         db.collection("empresas").doc(emailEmpresa).set({
 
+            email: emailEmpresa,
             cidade: placeholderEmpresaCidade,
             cnpj: placeholderCnpj,
             descricao: placeholderDescricao,
@@ -131,10 +153,10 @@ function CadastroEmpresa() {
             interesses: placeholderInteresses,
             nomeFantasia: placeholderNomeFantasia,
             razaoSocial: placeholderRazaoSocial,
-            telefone: placeholderEmpresaTelefone
+            telefone: placeholderEmpresaTelefone            
 
         }).then( () => {
-    
+
             alert("Dados alterados com sucesso!");
             
         }).catch(() => {
@@ -176,8 +198,11 @@ function CadastroEmpresa() {
                         <Inputgroup>
                             <div className="input-group mb-3">
                                 <label className="input-group-text" htmlFor="inputGroupSelect01">Estado</label>
-                                <select readOnly className="form-select" defaultValue={empresaEstado} id="inputGroupSelect01">
-                                    <option value="Selecione">Selecione</option>
+                                <select disabled className="form-select" value={empresaEstado} id="inputGroupSelect01"
+                                style={{
+                                    width:"25%", height:"calc(1.5em + .75rem + 2px)", border:"1px solid #ced4da",
+                                    padding:".375rem .75rem", background:"#e9ecef"
+                                }} >
                                     <option value="AC">AC</option>
                                     <option value="AL">AL</option>
                                     <option value="AP">AP</option>
@@ -263,13 +288,20 @@ function CadastroEmpresa() {
                                     </tr>
                                 </thead>
                                 <tbody id="corpoTabela">
-                                    {interesses.map((inte,index) => {
-                                        return(                                            
-                                            <tr key={index} className="table-secondary">
-                                                <td>{index+1}</td>
-                                                <td>{inte}</td>
-                                            </tr>)
-                                    })}
+                                    {interesses.length > 0 
+                                    ?
+                                        interesses.map((inte,index) => {
+                                            return(                                            
+                                                <tr key={index} className="table-secondary">
+                                                    <td>{index+1}</td>
+                                                    <td>{inte}</td>
+                                                </tr>)
+                                        })
+                                    :
+                                    (<tr className="table-secondary">
+                                        <td colSpan={2}>Não há interesses cadastrados.</td>
+                                    </tr>)
+                                    }
                                 </tbody>
                             </table>
                         </Tablediv>

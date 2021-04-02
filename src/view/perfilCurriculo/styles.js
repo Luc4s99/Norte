@@ -12,7 +12,7 @@ export const H2style = styled.h2`
     font-weight: bold;
 `;
 
-export const H5style = styled.h5`
+export const H3style = styled.h3`
 
     margin-top: 25px;
     margin-bottom: 25px;
@@ -22,7 +22,13 @@ export const H5style = styled.h5`
 export const Tablediv = styled.div`
 
     margin: auto;
-    width: 50%;
+    width: 90%;
+
+    > table tbody tr td .btn {
+        width: 6rem;
+        margin: 0.25rem;
+    }
+
 `;
 
 export const Box = styled.div`
@@ -40,13 +46,13 @@ export const Buttongroup = styled.div`
 
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;    
     margin-bottom: 30px;
     background-color: #67aaaf;
-    width: 50%;
+    width: 15%;
     border-radius: 10px;
     padding: 15px;
 

@@ -130,17 +130,33 @@ function PerfilPessoa() {
     }
 
     function salvarAlteracoes(){
+
+        db.collection("usuarios").doc(usuarioEmail).get().then((doc)=>{
+                
+            setUsuarioNome(doc.data().nome)
+            setUsuarioCidade(doc.data().cidade)
+            setUsuarioCpf(doc.data().cpf)
+            setUsuarioEndereco(doc.data().endereco)
+            setUsuarioEstado(doc.data().estado)
+            setUsuarioTelefone(doc.data().telefone)
+            setUsuarioDescricao(doc.data().descricao)
+
+            setAlterou(!alterou);
+        }).catch(()=>{
+            console.log("Erro na edição, tente novamente!");
+        });
         
         db.collection("usuarios").doc(usuarioEmail).set({
 
             telefone: placeholderTelefone,
             estado: placeholderEstado,
-            // nascimento: placeholderNascimento,
+            nascimento: usuarioNascimento,
             cidade: placeholderCidade,
             cpf: placeholderCpf,
             nome: placeholderNome,
             endereco: placeholderEndereco,
-            descricao: placeholderDescricao
+            descricao: placeholderDescricao,
+            email: usuarioEmail
 
         }).then( () => {
     

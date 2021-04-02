@@ -4,13 +4,13 @@ const INITIAL_STATE = {
     cnpj: '',
     razaoSocial: '',
     emailEmpresa: '',
-    senha: '',
-    cidade: '',
-    estado: '',
-    endereco: '',
-    telefone: '',
+    empresaSenha: '',
+    empresaCidade: '',
+    empresaEstado: '',
+    empresaEndereco: '',
+    empresaTelefone: '',
     interesses: [],
-    descricao: ''
+    empresaDescricao: ''
 }
 
 function empresaReducer (state = INITIAL_STATE, action){
