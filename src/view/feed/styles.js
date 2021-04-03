@@ -4,8 +4,9 @@ export const Wrapper = styled.div`
     min-height: 100%;
 `;
 
-export const DivCurriculo = styled.div`
-    
+export const DivCurriculo = styled.div`    
     width: 75%;
-    padding: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
 `;

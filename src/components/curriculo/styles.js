@@ -3,6 +3,13 @@ import styled from 'styled-components';
 export const Container = styled.div`
     display: flex;
     width: 100%;
+    background-color: #67aaaf;
+    padding: 1rem;
+    text-align: center;
+
+    >h3, h4, h5{
+        font-weight: bold;
+    }
 `; 
 
 export const Info = styled.div`
@@ -24,17 +31,17 @@ export const Pessoa = styled.div`
 `;
 
 export const Contato = styled.div`
-
+    
 `;
 
 export const Descricao = styled.div`
-
+    height: 100%;
 `;
 
 export const Habilidades = styled.div`
-
+    height: 100%;
 `;
 
-export const Formacao = styled.div`
-
+export const Experiencia = styled.div`
+    height: 100%;
 `;

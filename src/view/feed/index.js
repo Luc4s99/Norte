@@ -54,7 +54,7 @@ function Feed({match}) {
                     idiomas={item.idiomas}
                     outrasAtividades={item.outrasAtividades}
                     referencias={item.referencias}
-                  />
+                  />                  
                 )
               }
             )}

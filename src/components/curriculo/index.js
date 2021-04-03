@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 
-import { Container, Pessoal, Info, Pessoa, Contato, Descricao, Habilidades, Formacao } from './styles';
+import { Container, Pessoal, Info, Pessoa, Contato, Descricao, Habilidades, Experiencia} from './styles';
 import firebase from '../../config/firebase';
 
 function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividades, referencias, usuarioEmail}) {
-    
+   
     const [usuarioNome, setUsuarioNome] = useState('');
     const [usuarioCidade, setUsuarioCidade] = useState('');
     const [usuarioCpf, setUsuarioCpf] = useState('');
@@ -47,8 +47,8 @@ function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividade
                 <Pessoal>
                     <Pessoa>
                         <img src="https://via.placeholder.com/150" alt="Foto de Perfil"></img>
-                        <h3>{usuarioNome}</h3>
-                        <h5>{formacao}</h5>
+                        <h3 className="mt-3">{usuarioNome}</h3>
+                        <h5 className="mt-1">{formacao}</h5>
                     </Pessoa>
                     <Contato>
                         <h4>Contato:</h4>
@@ -67,16 +67,20 @@ function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividade
                 </Pessoal>
                 <Info>
                     <Descricao>
-                        Descricao
+                        <h4>Descrição:</h4>
+                        {usuarioDescricao}
                     </Descricao>
                     <Habilidades>
-                        Habilidades
+                        <h4>Habilidades:</h4>
+                        {habilidades}
                     </Habilidades>
-                    <Formacao>
-                        Formacao
-                    </Formacao>
+                    <Experiencia>
+                        <h4>Experiencias:</h4>
+                        {experiencia}
+                    </Experiencia>
                 </Info>
             </Container>
+            <br />
         </>
     );
 }
