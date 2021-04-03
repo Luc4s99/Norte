@@ -6,6 +6,7 @@ import { Formgroup, H2style, Inputgroup, Descricao, Fotoinput, Fotopreview, Butt
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 import { Link } from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 
 function CadastroPessoa() {
 
@@ -20,6 +21,7 @@ function CadastroPessoa() {
     const [estado, setEstado] = useState('');
     const [descricao, setDescricao] = useState('');
 
+    const dispatch = useDispatch();
     //const storage = firebase.storage(); 
     const db = firebase.firestore();
 
@@ -48,9 +50,53 @@ function CadastroPessoa() {
                 descricao: descricao
             }).then( () => {
 
+                firebase.auth()
+                .signInWithEmailAndPassword(email, senha) //Verifica o login do usuario
+                .then(                    
+                    //Buscar restante dos dados do usuario
+                    db.collection('usuarios').doc(email).get().then(
+                        
+                        (doc) => {
+                            
+                            if (doc.exists) {
+                                
+
+                                //Monta os dados do usuario de acordo com o que esta no firebase
+                                setTimeout( () => {
+                                    dispatch({
+                                        type:'LOG_IN',
+                                        payload: {
+                                            usuarioEmail: email,
+                                            usuarioNome: doc.data().nome,
+                                            usuarioCidade: doc.data().cidade,
+                                            usuarioCpf: doc.data().cpf,
+                                            usuarioEndereco: doc.data().endereco,
+                                            usuarioEstado: doc.data().estado,
+                                            usuarioTelefone: doc.data().telefone,
+                                            usuarioNascimento: doc.data().nascimento,
+                                            usuarioDescricao: doc.data().descricao
+                                        }
+                                    });
+                                    window.location.href = "./perfilPessoa";
+                                }, 1500);
+                       
+                            } else {
+                                console.log("Documento não encontrado");
+                            }
+                        }
+                    ).catch((error) => {
+                        console.log("Erro com o documento: ", error);
+                    })                        
+                )
+                .catch(
+                    (error) => {
+                        console.log("Deu ruim no login usuario");
+                    }
+                );
                 //Redirect não funcionando
-                //<Redirect exact to="/cadastroCurriculo" />
-                window.location.href = "http://localhost:3000/cadastroCurriculo";
+                // <Redirect exact to="/cadastroCurriculo" />
+                // window.location.href = "http://localhost:3000/cadastroCurriculo";
+                
             }).catch(() => {
 
                 alert("Erro no cadastro, tente novamente!");

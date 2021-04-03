@@ -58,7 +58,7 @@ function PerfilPessoa() {
                 console.log("Erro ao tentar recuperar curriculo:",error);
             });
 
-            
+            console.log(usuarioEmail)
             db.collection("usuarios").doc(usuarioEmail).get().then((doc)=>{
                 
                 setUsuarioNome(doc.data().nome)

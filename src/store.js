@@ -9,7 +9,7 @@ const persistedReducer = persistReducer({
         key:'rootNorte',
         storage:storage,
         stateReconciler: hardSet,
-        whitelist:['user', 'emp', 'curr']
+        whitelist:['user', 'emp']
     },Reducers);
 
     const store = createStore(persistedReducer);
