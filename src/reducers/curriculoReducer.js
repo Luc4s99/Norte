@@ -23,13 +23,13 @@ function curriculoReducer (state = INITIAL_STATE, action){
                             }
        case 'LOG_OUT': return {...state,
                                  usuarioLogado: 0,
-                                 experiencia: [],
-                                 formacao: [],
-                                 habilidades: [],
-                                 idiomas: [],
-                                 referencias: [],
-                                 outrasAtividades: [],
-                                 usuarioEmail: ''
+                                 experiencia: null,
+                                 formacao: null,
+                                 habilidades: null,
+                                 idiomas: null,
+                                 referencias: null,
+                                 outrasAtividades: null,
+                                 usuarioEmail: null
                                 }                          
     }
 
