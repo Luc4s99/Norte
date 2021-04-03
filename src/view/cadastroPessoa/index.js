@@ -20,10 +20,11 @@ function CadastroPessoa() {
     const [endereco, setEndereco] = useState('');
     const [estado, setEstado] = useState('');
     const [descricao, setDescricao] = useState('');
+    const [foto, setFoto] = useState();
 
     const dispatch = useDispatch();
-    //const storage = firebase.storage(); 
     const db = firebase.firestore();
+    const storage = firebase.storage();
 
     function novoUsuario(){
 
@@ -47,52 +48,63 @@ function CadastroPessoa() {
                 cpf: cpf,
                 nome: nome,
                 endereco: endereco,
-                descricao: descricao
+                descricao: descricao,
+                foto: foto.name + email
+
             }).then( () => {
 
-                firebase.auth()
-                .signInWithEmailAndPassword(email, senha) //Verifica o login do usuario
-                .then(                    
-                    //Buscar restante dos dados do usuario
-                    db.collection('usuarios').doc(email).get().then(
-                        
-                        (doc) => {
-                            
-                            if (doc.exists) {
-                                
+                storage.ref(`imagens/${foto.name+email}`)
+                       .put(foto)
+                       .then(()=>{
 
-                                //Monta os dados do usuario de acordo com o que esta no firebase
-                                setTimeout( () => {
-                                    dispatch({
-                                        type:'LOG_IN',
-                                        payload: {
-                                            usuarioEmail: email,
-                                            usuarioNome: doc.data().nome,
-                                            usuarioCidade: doc.data().cidade,
-                                            usuarioCpf: doc.data().cpf,
-                                            usuarioEndereco: doc.data().endereco,
-                                            usuarioEstado: doc.data().estado,
-                                            usuarioTelefone: doc.data().telefone,
-                                            usuarioNascimento: doc.data().nascimento,
-                                            usuarioDescricao: doc.data().descricao
+                        firebase.auth()
+                                .signInWithEmailAndPassword(email, senha) //Verifica o login do usuario
+                                .then(                    
+                                    //Buscar restante dos dados do usuario
+                                    db.collection('usuarios').doc(email).get().then(
+                                        
+                                        (doc) => {
+                                            
+                                            if (doc.exists) {
+                                                
+
+                                                //Monta os dados do usuario de acordo com o que esta no firebase
+                                                setTimeout( () => {
+                                                    dispatch({
+                                                        type:'LOG_IN',
+                                                        payload: {
+                                                            usuarioEmail: email,
+                                                            usuarioNome: doc.data().nome,
+                                                            usuarioCidade: doc.data().cidade,
+                                                            usuarioCpf: doc.data().cpf,
+                                                            usuarioEndereco: doc.data().endereco,
+                                                            usuarioEstado: doc.data().estado,
+                                                            usuarioTelefone: doc.data().telefone,
+                                                            usuarioNascimento: doc.data().nascimento,
+                                                            usuarioDescricao: doc.data().descricao,
+                                                            usuarioFoto: doc.data().foto
+                                                        }
+                                                    });
+                                                    window.location.href = "./perfilPessoa";
+                                                }, 1500);
+                                    
+                                            } else {
+                                                console.log("Documento não encontrado");
+                                            }
                                         }
-                                    });
-                                    window.location.href = "./perfilPessoa";
-                                }, 1500);
-                       
-                            } else {
-                                console.log("Documento não encontrado");
-                            }
-                        }
-                    ).catch((error) => {
-                        console.log("Erro com o documento: ", error);
-                    })                        
-                )
-                .catch(
-                    (error) => {
-                        console.log("Deu ruim no login usuario");
-                    }
-                );
+                                    ).catch((error) => {
+                                        console.log("Erro com o documento: ", error);
+                                    })                        
+                                )
+                                .catch(
+                                    (error) => {
+                                        console.log("Deu ruim no login usuario");
+                                    }
+                                );
+
+                       }).catch(()=>{
+                           console.log("Erro ao cadastrar foto no DB");
+                       })
                 //Redirect não funcionando
                 // <Redirect exact to="/cadastroCurriculo" />
                 // window.location.href = "http://localhost:3000/cadastroCurriculo";
@@ -230,11 +242,11 @@ function CadastroPessoa() {
 
                         <Fotopreview>
 
-                            <img className="preview-img" alt="Foto da Pessoa"/>
-
+                            <label> Foto de Perfil: </label>
+ 
                         </Fotopreview>
 
-                        <input type="file"  id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"/>
+                        <input type="file"  id="inputGroupFile04" className="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onChange={(e) => setFoto(e.target.files[0])}/>
                             
                     </Fotoinput>
 

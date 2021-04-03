@@ -27,8 +27,10 @@ function PerfilPessoa() {
     const [usuarioNascimento,setUsuarioNascimento] = useState(new Date());
     const [usuarioTelefone,setUsuarioTelefone] = useState('');
     const [usuarioDescricao,setUsuarioDescricao] = useState('');
+    const [usuarioFoto, setUsuarioFoto] = useState('');
     
     const db = firebase.firestore();
+    const storage = firebase.storage();
     const [verificaCurriculo, setVerificaCurriculo] = useState(1);
 
     const [alterou, setAlterou] = useState(false);
@@ -40,6 +42,14 @@ function PerfilPessoa() {
     // const [placeholderNascimento, setPlaceholderNascimento] = useState('');
     const [placeholderTelefone, setPlaceholderTelefone] = useState('');
     const [placeholderDescricao, setPlaceholderDescricao] = useState('');
+    const [placeholderFoto, setPlaceholderFoto] = useState('');
+
+    useEffect(()=>{
+        console.log("effect",usuarioFoto)
+        firebase.storage().ref(`imagens/${usuarioFoto}`).getDownloadURL()
+                          .then(url => setPlaceholderFoto(url))
+                          .catch(erro => setPlaceholderFoto("https://via.placeholder.com/100x50"));
+    },[placeholderFoto]);
 
     useEffect(()=>{
         
@@ -69,7 +79,11 @@ function PerfilPessoa() {
                 setUsuarioNascimento(doc.data().nascimento)
                 setUsuarioTelefone(doc.data().telefone)
                 setUsuarioDescricao(doc.data().descricao)
-
+                setUsuarioFoto(doc.data().foto)
+                
+                console.log("doc",doc.data().foto) 
+                console.log("state",usuarioFoto)               
+                
                 setAlterou(!alterou);
             }).catch((error)=>{
                 console.log("Erro ao tentar recuperar informações do usuário:",error);
@@ -94,6 +108,7 @@ function PerfilPessoa() {
         // setPlaceholderNascimento(usuarioNascimento);
         setPlaceholderTelefone(usuarioTelefone);
         setPlaceholderDescricao(usuarioDescricao);
+        setPlaceholderFoto(usuarioFoto);
 
     },[alterou])
     
@@ -124,7 +139,7 @@ function PerfilPessoa() {
     function handleChangeTelefone(event){
         setPlaceholderTelefone(event.target.value);
     }
-
+    
     function handleChangeDescricao(event){
         setPlaceholderDescricao(event.target.value);
     }
@@ -140,6 +155,7 @@ function PerfilPessoa() {
             setUsuarioEstado(doc.data().estado)
             setUsuarioTelefone(doc.data().telefone)
             setUsuarioDescricao(doc.data().descricao)
+            setUsuarioFoto(doc.data().foto)
 
             setAlterou(!alterou);
         }).catch(()=>{
@@ -156,10 +172,17 @@ function PerfilPessoa() {
             nome: placeholderNome,
             endereco: placeholderEndereco,
             descricao: placeholderDescricao,
-            email: usuarioEmail
+            email: usuarioEmail,
+            // foto: placeholderFoto+usuarioEmail
+            foto: usuarioFoto
 
         }).then( () => {
-    
+            
+            console.log("IMPORTANTE=>",placeholderFoto)
+            // storage.ref(`imagens/${placeholderFoto+usuarioEmail}`)
+            //            .put(placeholderFoto)
+            //            .then()
+            //            .catch();
             alert("Dados alterados com sucesso!");
             
         }).catch(() => {
@@ -241,9 +264,8 @@ function PerfilPessoa() {
                 <Fotoinput>
 
                     <Fotopreview>
-
-                        <img alt="Pré-visualização da foto" className="preview-img" />
-                        Aqui vai o preview da foto
+                        {/* {console.log(placeholderFoto)} */}
+                        <img src={placeholderFoto} alt="Pré-visualização da foto" className="preview-img" />                        
 
                     </Fotopreview>
                         
@@ -347,6 +369,17 @@ function PerfilPessoa() {
                                 <label>Nascimento</label>                                
                                 <input type="date" onChange={handleChangeNascimento} className="form-control mb-2" />
                             </div> */}
+                            <div>                                
+                                <label>Foto</label>
+                                <input type="file"  id="inputGroupFile04" className="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" 
+                                 onChange={(e) => {
+                                    console.log("EZINHO",e.target.files[0])
+                                    console.log("OnChange",placeholderFoto)
+                                    setPlaceholderFoto(e.target.files[0])
+                                    console.log("OnChange2",placeholderFoto)
+                                    }
+                                 }/>
+                            </div>
                             <div>                                
                                 <label>Descricao</label>
                                 <input type="text" value={placeholderDescricao} onChange={handleChangeDescricao} className="form-control mb-2" />

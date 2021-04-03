@@ -8,7 +8,8 @@ const INITIAL_STATE = {
     usuarioEstado: '',
     usuarioTelefone: '',
     usuarioDescricao: '',
-    usuarioEndereco: ''
+    usuarioEndereco: '',
+    usuarioFoto: '',
 }
 
 
@@ -24,7 +25,8 @@ function usuarioReducer (state = INITIAL_STATE, action){
                                  usuarioEstado: action.payload.usuarioEstado,
                                  usuarioTelefone: action.payload.usuarioTelefone,
                                  usuarioDescricao: action.payload.usuarioDescricao,
-                                 usuarioEndereco: action.payload.usuarioEndereco
+                                 usuarioEndereco: action.payload.usuarioEndereco,
+                                 usuarioFoto: action.payload.usuarioFoto
 
                             }
        case 'LOG_OUT': return {...state,
@@ -37,7 +39,8 @@ function usuarioReducer (state = INITIAL_STATE, action){
                                   usuarioEstado: null,
                                   usuarioTelefone: null,
                                   usuarioDescricao: null,
-                                  usuarioEndereco: null
+                                  usuarioEndereco: null,
+                                  usuarioFoto: null
                                 }                          
     }
 
