@@ -53,7 +53,11 @@ function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividade
                     <Contato>
                         <h4>Contato:</h4>
                             <h5>Endereco:</h5>
-                            <p>{usuarioEndereco}</p>
+                            <p>
+                                Estado: {usuarioEstado} <br/>
+                                Cidade: {usuarioCidade} <br/>                                
+                                Rua: {usuarioEndereco}
+                            </p>
 
                             <h5>Data de Nascimento:</h5>
                             <p>{toDateTime(usuarioNascimento.seconds).toLocaleDateString('pt-BR')}</p>
