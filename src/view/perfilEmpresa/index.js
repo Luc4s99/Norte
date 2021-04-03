@@ -5,11 +5,11 @@ import { Tablediv, Wrapper, H2style, Formgroup, Inputgroup, Fotoinput, Fotoprevi
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 function CadastroEmpresa() {
 
     const emailEmpresa = useSelector(state => state.emp.emailEmpresa)
-    console.log(useSelector(state => state.emp))
     // const nomeFantasia = useSelector(state => state.emp.nomeFantasia)
     // const cnpj = useSelector(state => state.emp.cnpj)
     // const razaoSocial = useSelector(state => state.emp.razaoSocial)
@@ -62,7 +62,6 @@ function CadastroEmpresa() {
 
                 setAlterou(!alterou);
 
-                console.log("->",doc.data())
 
             }).catch((error)=>{
                 console.log("Erro ao tentar recuperar informações da empresa:",error);
@@ -322,8 +321,8 @@ function CadastroEmpresa() {
                             Editar Perfil
                         </button>
 
-                        <button type="button" className="btn btn-success">Ver Feed</button>
-
+                        <Link to="/feed" type="button" className="btn btn-success">Ver Feed </Link>
+                        
                     </Buttongroup>    
                 </Wrapper>
 
