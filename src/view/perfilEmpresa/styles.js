@@ -62,12 +62,16 @@ export const Inputgroup = styled.div`
 export const Fotopreview = styled.div`
 
     margin: auto;
-    width: 50%;
-    border-radius: 50%;
+    text-align: center;
+    
+    > img{
+        width: 50%;
+        border-radius: 50%;
+    }
     margin-top: 5%;
     margin-bottom: 5%;
 
-`;
+`; 
 
 export const Buttongroup = styled.div`
 

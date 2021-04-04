@@ -22,9 +22,11 @@ function CadastroEmpresa() {
     const [senha, setSenha] = useState('');
     const [descricao, setDescricao] = useState('');
     const [interesses, setInteresses] = useState([]);
+    const [logoEmpresa, setLogoEmpresa] = useState();
     const dispatch = useDispatch();
 
     const db = firebase.firestore();
+    const storage = firebase.storage();
 
     function adicionarInteresses() {
         
@@ -64,30 +66,36 @@ function CadastroEmpresa() {
                 descricao: descricao,
                 nomeFantasia: nomeFantasia,
                 interesses: interesses,
-                senha: senha
+                senha: senha,
+                logoEmpresa: logoEmpresa.name+emailEmpresa
 
             }).then( () => {
-                
-                //Armazena os dados no redux
-                dispatch({
-                    type:'LOG_IN',
-                    payload: {
 
-                        emailEmpresa: emailEmpresa,
-                        empresaTelefone: telefone,
-                        empresaEstado: estado,
-                        empresaCidade: cidade,
-                        cnpj: cnpj,
-                        razaoSocial: razaoSocial,
-                        empresaEndereco: endereco,
-                        empresaDescricao: descricao,
-                        nomeFantasia: nomeFantasia,
-                        interesses: interesses,
-                        empresaSenha: senha
+                storage.ref(`imagens/${logoEmpresa.name+emailEmpresa}`)
+                       .put(logoEmpresa)
+                       .then(()=>{
+                            //Armazena os dados no redux
+                            dispatch({
+                                type:'LOG_IN',
+                                payload: {
 
-                    }
-                });
-
+                                    emailEmpresa: emailEmpresa,
+                                    empresaTelefone: telefone,
+                                    empresaEstado: estado,
+                                    empresaCidade: cidade,
+                                    cnpj: cnpj,
+                                    razaoSocial: razaoSocial,
+                                    empresaEndereco: endereco,
+                                    empresaDescricao: descricao,
+                                    nomeFantasia: nomeFantasia,
+                                    interesses: interesses,
+                                    empresaSenha: senha,
+                                    logoEmpresa: logoEmpresa
+                                }
+                            });
+                }).catch(()=>{
+                    console.log("Erro ao cadastrar foto no DB");
+                })
                 //Redirect não funcionando
                 //<Redirect exact to="/cadastroCurriculo" />
                 window.location.href = "http://localhost:3000/perfilEmpresa";
@@ -111,7 +119,7 @@ function CadastroEmpresa() {
                     alert('Formato de e-mail errado');
                     break;
                 default:
-                    
+                    console.log(erro.message)
                     alert('Não foi possível cadastrar');
                     break;
             }
@@ -201,14 +209,14 @@ function CadastroEmpresa() {
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">E-mail</span>
-                                <input type="text" className="form-control" onChange={e => setEmailEmpresa(e.target.value)} />
+                                <input type="email" className="form-control" onChange={e => setEmailEmpresa(e.target.value)} />
                             </div>
                         </Inputgroup>
 
                         <Inputgroup>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroup-sizing-default">Telefone</span>
-                                <input type="email" className="form-control" onChange={e => setTelefone(e.target.value)} />
+                                <input type="text" className="form-control" onChange={e => setTelefone(e.target.value)} />
                             </div>
                         </Inputgroup>
 
@@ -225,11 +233,10 @@ function CadastroEmpresa() {
 
                         <Fotopreview>
 
-                            <img className="preview-img" alt="Logo da Empresa"/>
+                        <label> Logo da Empresa: </label>
 
                         </Fotopreview>
-
-                        <input type="file"  id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"/>
+                        <input type="file"  id="inputGroupFile04" className="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onChange={(e) => setLogoEmpresa(e.target.files[0])}/>                        
                             
                     </Fotoinput>
 

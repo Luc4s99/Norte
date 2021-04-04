@@ -10,7 +10,8 @@ const INITIAL_STATE = {
     empresaEndereco: '',
     empresaTelefone: '',
     interesses: [],
-    empresaDescricao: ''
+    empresaDescricao: '',
+    logoEmpresa: ''
 }
 
 function empresaReducer (state = INITIAL_STATE, action){
@@ -26,7 +27,8 @@ function empresaReducer (state = INITIAL_STATE, action){
                                  empresaEndereco: action.payload.empresaEndereco,
                                  empresaTelefone: action.payload.empresaTelefone,
                                  interesses: action.payload.interesses,
-                                 empresaDescricao: action.payload.empresaDescricao
+                                 empresaDescricao: action.payload.empresaDescricao,
+                                 logoEmpresa: action.payload.logoEmpresa
  
                             }
        case 'LOG_OUT': return {...state,
@@ -40,7 +42,8 @@ function empresaReducer (state = INITIAL_STATE, action){
                                 empresaEndereco: null,
                                 empresaTelefone: null,
                                 interesses: [],
-                                empresaDescricao: null
+                                empresaDescricao: null,
+                                logoEmpresa: null
                                 }                          
     }
 

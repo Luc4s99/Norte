@@ -245,7 +245,7 @@ function CadastroPessoa() {
                             <label> Foto de Perfil: </label>
  
                         </Fotopreview>
-
+ 
                         <input type="file"  id="inputGroupFile04" className="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" onChange={(e) => setFoto(e.target.files[0])}/>
                             
                     </Fotoinput>

@@ -29,6 +29,7 @@ function CadastroEmpresa() {
     const [empresaTelefone, setEmpresaTelefone] = useState('');
     const [interesses, setInteresses] = useState([]);
     const [empresaDescricao, setEmpresaDescricao] = useState('');
+    const [logoEmpresa, setLogoEmpresa] = useState('');
     
     const db = firebase.firestore();
 
@@ -42,7 +43,15 @@ function CadastroEmpresa() {
     const [placeholderEmpresaTelefone, setPlaceholderEmpresaTelefone] = useState('');
     const [placeholderInteresses, setPlaceholderInteresses] = useState('');
     const [placeholderDescricao, setPlaceholderDescricao] = useState('');
-        
+    const [placeholderLogoEmpresa, setPlaceholderLogoEmpresa] = useState('');
+    
+    useEffect(()=>{
+        console.log("effect",logoEmpresa)
+        firebase.storage().ref(`imagens/${logoEmpresa}`).getDownloadURL()
+                          .then(url => setPlaceholderLogoEmpresa(url))
+                          .catch(erro => setPlaceholderLogoEmpresa("https://via.placeholder.com/100x50"));
+    },[placeholderLogoEmpresa]);
+
     useEffect(()=>{        
         if(emailEmpresa === null){
             window.location.href = "http://localhost:3000/login";
@@ -58,7 +67,8 @@ function CadastroEmpresa() {
                 setEmpresaEndereco(doc.data().endereco);
                 setEmpresaTelefone(doc.data().telefone);                
                 setEmpresaDescricao(doc.data().descricao);
-                setInteresses([...interesses, doc.data().interesses])
+                setInteresses([...interesses, doc.data().interesses]);
+                setLogoEmpresa(doc.data().logoEmpresa);
 
                 setAlterou(!alterou);
 
@@ -81,6 +91,7 @@ function CadastroEmpresa() {
         setPlaceholderEmpresaTelefone(empresaTelefone);
         setPlaceholderInteresses(...interesses);
         setPlaceholderDescricao(empresaDescricao);
+        setPlaceholderLogoEmpresa(logoEmpresa);
         
         console.log(nomeFantasia, cnpj, razaoSocial, empresaCidade, empresaEstado, empresaEndereco, empresaTelefone, interesses, empresaDescricao)
     },[alterou])
@@ -134,6 +145,7 @@ function CadastroEmpresa() {
             setEmpresaTelefone(doc.data().telefone);                
             setEmpresaDescricao(doc.data().descricao);
             setInteresses([...interesses, doc.data().interesses])
+            setLogoEmpresa(doc.data().logoEmpresa);
 
             setAlterou(!alterou);
 
@@ -152,7 +164,8 @@ function CadastroEmpresa() {
             interesses: placeholderInteresses,
             nomeFantasia: placeholderNomeFantasia,
             razaoSocial: placeholderRazaoSocial,
-            telefone: placeholderEmpresaTelefone            
+            telefone: placeholderEmpresaTelefone,
+            logoEmpresa: placeholderLogoEmpresa+emailEmpresa
 
         }).then( () => {
 
@@ -267,7 +280,7 @@ function CadastroEmpresa() {
 
                         <Fotopreview>
 
-                            <img className="preview-img" alt="Logo Empresa"/>
+                        <img src={placeholderLogoEmpresa} alt="Pré-visualização da foto" className="preview-img" />                        
 
                         </Fotopreview>
 
