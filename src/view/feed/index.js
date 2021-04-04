@@ -169,8 +169,10 @@ function Feed() {
                     idiomas={item.idiomas}
                     outrasAtividades={item.outrasAtividades}
                     referencias={item.referencias}
-                  />                  
+                  />
+                  //            
                 )
+                
               }
             )}
           </DivCurriculo>

@@ -15,7 +15,16 @@ export const Container = styled.div`
 export const Info = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;    
+    width: 100%;
+
+    
+
+    >.btn{
+        margin-left: auto;
+        margin-right: auto;
+        width: 15rem;
+        margin-bottom: 1rem;
+    }
 `; 
 
 export const Pessoal = styled.div`
@@ -36,6 +45,7 @@ export const Contato = styled.div`
 
 export const Descricao = styled.div`
     height: 100%;
+    margin-top: 1rem;
 `;
 
 export const Habilidades = styled.div`
@@ -44,4 +54,9 @@ export const Habilidades = styled.div`
 
 export const Experiencia = styled.div`
     height: 100%;
+`;
+
+export const Opcoes = styled.div`
+    display: flex;
+    justify-content: space-around;
 `;

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import { Container, Pessoal, Info, Pessoa, Contato, Descricao, Habilidades, Experiencia} from './styles';
+import { Container, Pessoal, Info, Pessoa, Contato, Descricao, Habilidades, Experiencia, Opcoes} from './styles';
 import firebase from '../../config/firebase';
 
 function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividades, referencias, usuarioEmail}) {
@@ -82,6 +82,13 @@ function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividade
                         <h4>Experiencias:</h4>
                         {experiencia}
                     </Experiencia>
+                    <Opcoes>
+                        <button type="button" className="btn btn-primary"> + Detalhes </button>
+                        <div>
+                            <button type="button" className="btn btn-danger mr-3"> <i className="fal fa-thumbs-down"></i> </button>
+                            <button type="button" className="btn btn-success"> <i className="far fa-thumbs-up"></i> </button>
+                        </div>
+                    </Opcoes>
                 </Info>
             </Container>
             <br />
