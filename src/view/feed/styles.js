@@ -24,4 +24,16 @@ export const Header = styled.div`
 
 export const Filtro = styled.div`
     display: flex;
+    font-weight: bold;
+    padding:1rem;
+    justify-content: space-between;   
+`; 
+
+export const Filtros = styled.div`
+    > label{
+        margin-right: 0.25rem;
+    }
+    > input{
+        margin-right: 1rem;
+    }
 `;

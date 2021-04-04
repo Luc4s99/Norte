@@ -96,9 +96,22 @@ function CadastroEmpresa() {
                 }).catch(()=>{
                     console.log("Erro ao cadastrar foto no DB");
                 })
+
+                firebase.auth()
+                    .signInWithEmailAndPassword(emailEmpresa, senha) 
+                    .then( ()=>{
+                        console.log("Empresa Logou");
+                        window.location.href = "http://localhost:3000/perfilEmpresa";
+                    }
+                )
+                .catch(
+                    (error) => {
+                        console.log("Deu ruim no login empresa");
+                    }
+                );
                 //Redirect não funcionando
                 //<Redirect exact to="/cadastroCurriculo" />
-                window.location.href = "http://localhost:3000/perfilEmpresa";
+                
             }).catch(() => {
 
                 alert("Erro no cadastro, tente novamente!");

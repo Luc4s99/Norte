@@ -4,7 +4,7 @@ import Curriculo from '../../components/curriculo';
 
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
-import { Wrapper, DivCurriculo, Header, Filtro } from './styles';
+import { Wrapper, DivCurriculo, Header, Filtro, Filtros } from './styles';
 
 import firebase from '../../config/firebase';
 import 'firebase/auth';
@@ -19,7 +19,7 @@ function Feed() {
 
   useEffect(()=>{
     
-    if(tipoFiltro === ""){
+    if(tipoFiltro === "" || pesquisa === ""){
 
       firebase.firestore().collection('curriculos').get().then( resultado => {
      
@@ -134,7 +134,7 @@ function Feed() {
               className="form-control text-left"/>
             <Filtro>
               <div><label>Filtrar Por:</label></div>
-              <div onChange={onChangeValue}>
+              <Filtros onChange={onChangeValue}>
                 <label htmlFor="Experiencia">Experiência</label>
                 <input type="radio" id="experiencia" name="tipoFiltro" value="Experiencia"></input>
 
@@ -152,7 +152,7 @@ function Feed() {
 
                 <label htmlFor="Atividades">Outros</label>
                 <input type="radio" id="Atividades" name="tipoFiltro" value="Atividades"></input>
-              </div>
+              </Filtros>
             </Filtro>
             <button type="button" className="btn btn-primary" onClick={()=>limpaFiltro()}> Limpar filtros </button>
           </Header>
