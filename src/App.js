@@ -11,6 +11,7 @@ import Home from './view/home';
 import PerfilEmpresa from './view/perfilEmpresa';
 import PerfilCurriculo from './view/perfilCurriculo';
 import Feed from './view/feed';
+import DetalheCurriculo from './view/detalheCurriculo';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/perfilPessoa" component={PerfilPessoa} />
         <Route exact path="/perfilEmpresa" component={PerfilEmpresa} />
         <Route exact path="/perfilCurriculo" component={PerfilCurriculo} />
+        <Route exact path="/detalheCurriculo/:id" component={DetalheCurriculo} /> 
         <Route exact path="/feed" component={Feed} />
       </BrowserRouter>
       <GlobalStyles />

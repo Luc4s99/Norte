@@ -170,7 +170,6 @@ function Feed() {
                     outrasAtividades={item.outrasAtividades}
                     referencias={item.referencias}
                   />
-                  //            
                 )
                 
               }

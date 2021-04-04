@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
 
 import { Container, Pessoal, Info, Pessoa, Contato, Descricao, Habilidades, Experiencia, Opcoes} from './styles';
 import firebase from '../../config/firebase';
@@ -83,7 +84,7 @@ function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividade
                         {experiencia}
                     </Experiencia>
                     <Opcoes>
-                        <button type="button" className="btn btn-primary"> + Detalhes </button>
+                        <Link to={`/detalheCurriculo/${usuarioEmail}`} className="btn btn-primary"> + detalhes </Link>
                         <div>
                             <button type="button" className="btn btn-danger mr-3"> <i className="fal fa-thumbs-down"></i> </button>
                             <button type="button" className="btn btn-success"> <i className="far fa-thumbs-up"></i> </button>
