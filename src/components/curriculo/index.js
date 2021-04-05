@@ -3,12 +3,12 @@ import {Link} from 'react-router-dom';
 
 import { Container, Pessoal, Info, Pessoa, Contato, Descricao, Habilidades, Experiencia, Opcoes} from './styles';
 import firebase from '../../config/firebase';
+import firebaseUpdate from 'firebase/app';
 
-function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividades, referencias, usuarioEmail}) {
+function Curriculo({experiencia, formacao, habilidades, usuarioEmail, emailEmpresa}) {
    
     const [usuarioNome, setUsuarioNome] = useState('');
     const [usuarioCidade, setUsuarioCidade] = useState('');
-    const [usuarioCpf, setUsuarioCpf] = useState('');
     const [usuarioEndereco, setUsuarioEndereco] = useState('');
     const [usuarioEstado,setUsuarioEstado] = useState('');
     const [usuarioNascimento,setUsuarioNascimento] = useState(new Date());
@@ -22,24 +22,37 @@ function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividade
                     
             setUsuarioNome(doc.data().nome)
             setUsuarioCidade(doc.data().cidade)
-            setUsuarioCpf(doc.data().cpf)
             setUsuarioEndereco(doc.data().endereco)
             setUsuarioEstado(doc.data().estado)
             setUsuarioNascimento(doc.data().nascimento)
             setUsuarioTelefone(doc.data().telefone)
             setUsuarioDescricao(doc.data().descricao)
-
         
         }).catch((error)=>{
             console.log("Erro ao tentar recuperar informações do usuário:",error);
         });
-
+        
     },[])
 
     function toDateTime(secs){
         var t = new Date(1970, 0, 1);
         t.setSeconds(secs);
         return t;
+    }
+
+    function sendNotification(){        
+
+        db.collection("notificacoes").doc(usuarioEmail).update({            
+            empresasInteressadas: firebaseUpdate.firestore.FieldValue.arrayUnion(emailEmpresa)
+        }).then( () => {
+            console.log(emailEmpresa, usuarioEmail);
+        }).catch((error) => {
+            console.log(error);
+            alert("Erro na edição, tente novamente!");
+        })
+
+        document.getElementById("likeButton").disabled = true;
+
     }
 
     return (
@@ -86,8 +99,8 @@ function Curriculo({experiencia, formacao, habilidades, idiomas, outrasAtividade
                     <Opcoes>
                         <Link to={`/detalheCurriculo/${usuarioEmail}`} className="btn btn-primary"> + detalhes </Link>
                         <div>
-                            <button type="button" className="btn btn-danger mr-3"> <i className="fal fa-thumbs-down"></i> </button>
-                            <button type="button" className="btn btn-success"> <i className="far fa-thumbs-up"></i> </button>
+                            <button disabled={true} type="button" className="btn btn-danger mr-3"> <i className="fal fa-thumbs-down"></i> </button>
+                            <button type="button" id="likeButton" className="btn btn-success" onClick={sendNotification}> <i className="far fa-thumbs-up"></i> </button>
                         </div>
                     </Opcoes>
                 </Info>

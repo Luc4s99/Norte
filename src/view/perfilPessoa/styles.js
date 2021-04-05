@@ -79,4 +79,4 @@ export const Buttongroup = styled.div`
 
 export const Wrapper = styled.div`
     min-height: 100%;
-`;
+`; 

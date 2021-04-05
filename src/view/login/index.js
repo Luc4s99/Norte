@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Footer from '../../components/footer';
-import { Wrapper, Links, Box } from './styles.js';
+import { Wrapper, Links, Box, Opcao } from './styles.js';
 import logo from '../../assets/images/logo.jpg';
 
 import firebase from '../../config/firebase';
@@ -148,13 +148,16 @@ function Login() {
                             <input placeholder="Digite sua senha..." type="password" className="form-control" id="inputPassword" onChange={e => setSenha(e.target.value)} />
                         </div>
 
-                        <div onChange={onChangeValue}>
-                            <label htmlFor="pessoa">Pessoa</label>
-                            <input type="radio" id="pessoa" name="tipoUsuario" value="pessoa"></input>
-
-                            <label htmlFor="empresa">Empresa</label>
-                            <input type="radio" id="empresa" name="tipoUsuario" value="empresa"></input>
-                        </div>
+                        <Opcao onChange={onChangeValue}>
+                            <div>
+                                <label htmlFor="pessoa" className="mr-2">Pessoa</label>
+                                <input type="radio" id="pessoa" name="tipoUsuario" value="pessoa"></input>
+                            </div>
+                            <div>
+                                <label htmlFor="empresa">Empresa</label>
+                                <input type="radio" id="empresa" name="tipoUsuario" value="empresa" className="ml-2"></input>
+                            </div>
+                        </Opcao>
 
                         <button className="btn btn-primary" type="button" onClick={handleLogin}>Entrar</button>
 

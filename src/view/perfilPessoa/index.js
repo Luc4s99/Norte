@@ -30,7 +30,6 @@ function PerfilPessoa() {
     const [usuarioFoto, setUsuarioFoto] = useState('');
     
     const db = firebase.firestore();
-    const storage = firebase.storage();
     const [verificaCurriculo, setVerificaCurriculo] = useState(1);
 
     const [alterou, setAlterou] = useState(false);
@@ -45,7 +44,6 @@ function PerfilPessoa() {
     const [placeholderFoto, setPlaceholderFoto] = useState('');
 
     useEffect(()=>{
-        console.log("effect",usuarioFoto)
         firebase.storage().ref(`imagens/${usuarioFoto}`).getDownloadURL()
                           .then(url => setPlaceholderFoto(url))
                           .catch(erro => setPlaceholderFoto("https://via.placeholder.com/100x50"));
@@ -68,7 +66,6 @@ function PerfilPessoa() {
                 console.log("Erro ao tentar recuperar curriculo:",error);
             });
 
-            console.log(usuarioEmail)
             db.collection("usuarios").doc(usuarioEmail).get().then((doc)=>{
                 
                 setUsuarioNome(doc.data().nome)
@@ -81,8 +78,7 @@ function PerfilPessoa() {
                 setUsuarioDescricao(doc.data().descricao)
                 setUsuarioFoto(doc.data().foto)
                 
-                console.log("doc",doc.data().foto) 
-                console.log("state",usuarioFoto)               
+                            
                 
                 setAlterou(!alterou);
             }).catch((error)=>{

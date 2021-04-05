@@ -105,14 +105,20 @@ function CadastroPessoa() {
                        }).catch(()=>{
                            console.log("Erro ao cadastrar foto no DB");
                        })
-                //Redirect não funcionando
-                // <Redirect exact to="/cadastroCurriculo" />
-                // window.location.href = "http://localhost:3000/cadastroCurriculo";
+
+                db.collection("notificacoes").doc(email).set({
+                    empresasInteressadas: []
+                }).then(()=>{
+                    console.log("Criado Notificacoes");
+                }).catch((error)=>{
+                    console.log(error);
+                })
                 
             }).catch(() => {
 
                 alert("Erro no cadastro, tente novamente!");
             })
+
 
         }).catch(erro => {
             switch(erro.message){

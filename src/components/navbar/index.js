@@ -1,20 +1,35 @@
 import React, { useState } from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import { Bodymargin } from './styles';
-// import { Bell } from '@styled-icons/entypo/Bell';
+import { Bodymargin, Empresas } from './styles';
+import { Bell } from '@styled-icons/entypo/Bell';
+
+import firebase from '../../config/firebase';
+import 'firebase/auth';
 
 function Navbar() {
 
     const dispatch = useDispatch();
     const [logout, setLogout] = useState(0);
 
-    function handleLogout() {
+    const usuarioEmail = useSelector(state => state.user.usuarioEmail);
+    const [empresasInteressadas, setEmpresasInteressadas] = useState([]);
+    
 
+    function handleLogout() {
+        
         setLogout(1);
         dispatch({
            type: 'LOG_OUT'
         });
+
+        window.location.href = "http://localhost:3000/login";
+    }
+
+    if(usuarioEmail !== ""){
+        firebase.firestore().collection("notificacoes").doc(usuarioEmail).get().then((doc)=>{
+            setEmpresasInteressadas(doc.data().empresasInteressadas);
+        }).catch((error)=>console.log(error));
     }
 
     return (
@@ -28,7 +43,8 @@ function Navbar() {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        {/* <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <ul className="navbar-nav ml-auto">
+                        {/*
                             <li className="nav-item">
                                 <a className="nav-link active" aria-current="page" href="#">Função 1</a>
                             </li>
@@ -45,7 +61,7 @@ function Navbar() {
                                 <a className="nav-link" href="#">Função 4</a>
                             </li>
                             
-                        </ul>
+                        
                         <form className="d-flex mr-5 ml-auto">
                             <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                             <button className="btn btn-outline-success" type="submit">Search</button>
@@ -57,22 +73,61 @@ function Navbar() {
                                 <Bell size="36" />
                             </button>
                         </li> */}
+                        
+                        { usuarioEmail !== '' && empresasInteressadas.length > 0 ? 
+                        
+                        <li className="nav-item mr-3">
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalEmpresasInteressadas">                             
+                                <Bell size="26" />
+                            </button>
+                        </li>
 
+                        : null}
+                        
                         { useSelector(state => state.user.usuarioLogado) === 1 &&
-                                                          
-                            <li className="nav-item">
-                                <button onClick={handleLogout} >Sair <span className="sr-only">(current)</span> </button>
+
+                            <li className="nav-item ml-3 mt-3">
+                                <button onClick={handleLogout}> Sair <span className="sr-only">(current)</span> </button>
                             </li>                    
                             
                         }
-
+                        </ul>
                     </div>
                 </div>
             </nav>
             
             <Bodymargin />
+
+            {/* Modal Empresas Interessas */}
+            <div className="modal fade" id="modalEmpresasInteressadas" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+
+                        <div className="modal-header text-center">
+                            <h5 className="modal-title w-100">Empresas interessadas em você:</h5>
+                        </div>
+
+                        <Empresas className="modal-body">
+                            
+                            {<ul className="list-group">{empresasInteressadas.map((item, index)=>{
+                                return(                                
+                                    <li key={index} className="list-group-item"> 
+                                        {item} 
+                                    </li>                                  
+                                )
+                            })}</ul>}
+
+                        </Empresas>
+
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-danger" data-dismiss="modal" >Fechar</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </>
     );
 }
 
-export default Navbar;
+export default Navbar; 

@@ -20,6 +20,7 @@ export const Links = styled.div`
 
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 
     background-color: #67aaaf;
     width: 300px;
@@ -28,9 +29,10 @@ export const Links = styled.div`
     padding: 20px;
     border-radius: 10px;
 
-    > a:first-child{
+    /* > a:first-child{
         margin-bottom: 15px;
-    }
+    } */
+    
 
 `;
 
@@ -40,6 +42,20 @@ export const Box = styled.div`
     margin: auto;
     margin-bottom: 20px;
     width: 40%;
-    padding: 15px;
+    padding: 1rem;
     border-radius: 10px;
+    
+`; 
+
+export const Opcao = styled.div`
+    display: flex;
+    justify-content: space-around;
+    
+    >div label{
+        
+    }
+
+    >div input{
+        
+    }
 `;

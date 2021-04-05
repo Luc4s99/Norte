@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import Curriculo from '../../components/curriculo';
 
 import Navbar from '../../components/navbar';
@@ -15,7 +15,7 @@ function Feed() {
   const listaCurriculos = [];
   const [pesquisa, setPesquisa] = useState('');
   const [tipoFiltro, setTipoFiltro] = useState('');
-  
+  const emailEmpresa = useSelector(state => state.emp.emailEmpresa)
 
   useEffect(()=>{
     
@@ -166,9 +166,7 @@ function Feed() {
                     experiencia={item.experiencia}
                     formacao={item.formacao}
                     habilidades={item.habilidades}
-                    idiomas={item.idiomas}
-                    outrasAtividades={item.outrasAtividades}
-                    referencias={item.referencias}
+                    emailEmpresa={emailEmpresa}
                   />
                 )
                 
