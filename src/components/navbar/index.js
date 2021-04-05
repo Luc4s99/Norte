@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import { Bodymargin, Empresas } from './styles';
@@ -11,7 +11,8 @@ function Navbar() {
 
     const dispatch = useDispatch();
     const [logout, setLogout] = useState(0);
-
+    const [redireciona, setRedireciona] = useState(false);
+    const [empresa, setEmpresa] = useState('');
     const usuarioEmail = useSelector(state => state.user.usuarioEmail);
     const [empresasInteressadas, setEmpresasInteressadas] = useState([]);
     
@@ -25,16 +26,20 @@ function Navbar() {
 
         window.location.href = "http://localhost:3000/login";
     }
-
-    if(usuarioEmail !== ""){
-        firebase.firestore().collection("notificacoes").doc(usuarioEmail).get().then((doc)=>{
-            setEmpresasInteressadas(doc.data().empresasInteressadas);
-        }).catch((error)=>console.log(error));
-    }
+   
+    useEffect(()=>{
+        if(usuarioEmail !== ""){
+            firebase.firestore().collection("notificacoes").doc(usuarioEmail).get().then((doc)=>{
+                setEmpresasInteressadas(doc.data().empresasInteressadas);
+            }).catch((error)=>console.log(error));
+        }
+    },[]) 
 
     return (
         <>
             {logout === 1 ? <Redirect to ="/login" /> : null}
+            {redireciona === true ? <Redirect to={`/detalheEmpresa/${empresa}`}/> : null}
+
             <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
                     {/* <a className="navbar-brand" href="/">Norte</a> */}
@@ -77,7 +82,7 @@ function Navbar() {
                         { usuarioEmail !== '' && empresasInteressadas.length > 0 ? 
                         
                         <li className="nav-item mr-3">
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalEmpresasInteressadas">                             
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalEmpresasInteressadas">
                                 <Bell size="26" />
                             </button>
                         </li>
@@ -103,6 +108,7 @@ function Navbar() {
                 <div className="modal-dialog">
                     <div className="modal-content">
 
+                        
                         <div className="modal-header text-center">
                             <h5 className="modal-title w-100">Empresas interessadas em você:</h5>
                         </div>
@@ -112,7 +118,16 @@ function Navbar() {
                             {<ul className="list-group">{empresasInteressadas.map((item, index)=>{
                                 return(                                
                                     <li key={index} className="list-group-item"> 
-                                        {item} 
+                                        <div>
+                                            {item} 
+                                            <button 
+                                                type="button" className="btn btn-primary" data-dismiss="modal" onClick={() => {
+                                                    setRedireciona(true);
+                                                    setEmpresa(item);
+                                                }}>
+                                                    + Detalhes
+                                            </button> 
+                                        </div>
                                     </li>                                  
                                 )
                             })}</ul>}
@@ -120,7 +135,7 @@ function Navbar() {
                         </Empresas>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-danger" data-dismiss="modal" >Fechar</button>
+                            <button type="button" className="btn btn-danger" data-dismiss="modal">Fechar</button>
                         </div>
 
                     </div>

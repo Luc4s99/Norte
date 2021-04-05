@@ -5,5 +5,9 @@ export const Bodymargin = styled.div`
 `;
 
 export const Empresas = styled.div`
-    
+    > ul li div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 `;
