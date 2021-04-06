@@ -60,7 +60,7 @@ function Login() {
                                 }, 1500);
                        
                             } else {
-                                console.log("Documento não encontrado");
+                                setMsg("ErroTipousuario");
                             }
                         }
                     ).catch((error) => {
@@ -110,7 +110,7 @@ function Login() {
                                 }, 1500);
                                 
                             } else {
-                                console.log("Documento não encontrado");
+                                setMsg("ErroTipousuario");
                             }
                         }
                     ).catch((error) => {
@@ -165,7 +165,8 @@ function Login() {
                     
                             { msg === "Sucesso" && <strong>Login realizado com sucesso</strong> }
                             { msg === "Erro" && <strong>Verifique suas credenciais</strong> }
-                            { msg === "tipoUsuario" && <strong>Selecione o tipo de usuario!</strong>}
+                            { msg === "tipoUsuario" && <strong>Selecione o tipo de usuário!</strong>}
+                            { msg === "ErroTipousuario" && <strong>Verifique se o tipo de usuário esta correto!</strong>}
 
                         </div>
                     </form>

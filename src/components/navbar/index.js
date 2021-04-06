@@ -24,7 +24,7 @@ function Navbar() {
            type: 'LOG_OUT'
         });
 
-        window.location.href = "http://localhost:3000/login";
+        // window.location.href = "http://localhost:3000/login";
     }
    
     useEffect(()=>{

@@ -49,7 +49,7 @@ function PerfilCurriculo() {
                 } else{
                     console.log("Este documento não existe.");
                 }
-            }).catch((error)=>{
+            }).catch((error)=>{ 
                 console.log("Erro ao tentar recuperar curriculo:",error);
             });
         }

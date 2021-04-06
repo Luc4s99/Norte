@@ -10,15 +10,7 @@ import { Link } from 'react-router-dom';
 function PerfilPessoa() {
    
     const usuarioEmail = useSelector(state => state.user.usuarioEmail)
-    // const usuarioNome = useSelector(state => state.user.usuarioNome)
-    // const usuarioCidade = useSelector(state => state.user.usuarioCidade)
-    // const usuarioCpf = useSelector(state => state.user.usuarioCpf)
-    // const usuarioEndereco = useSelector(state => state.user.usuarioEndereco)
-    // const usuarioEstado = useSelector(state => state.user.usuarioEstado)
-    // const usuarioNascimento = useSelector(state => state.user.usuarioNascimento)
-    // const usuarioTelefone = useSelector(state => state.user.usuarioTelefone)
-    // const usuarioDescricao = useSelector(state => state.user.usuarioDescricao)
-
+    
     const [usuarioNome, setUsuarioNome] = useState('');
     const [usuarioCidade, setUsuarioCidade] = useState('');
     const [usuarioCpf, setUsuarioCpf] = useState('');
@@ -30,9 +22,12 @@ function PerfilPessoa() {
     const [usuarioFoto, setUsuarioFoto] = useState('');
     
     const db = firebase.firestore();
+    const storage = firebase.storage();
     const [verificaCurriculo, setVerificaCurriculo] = useState(1);
 
     const [alterou, setAlterou] = useState(false);
+    const [recarregaFoto, setRecarregaFoto] = useState(false);
+
     const [placeholderNome, setPlaceholderNome] = useState('');
     const [placeholderCidade, setPlaceholderCidade] = useState('');
     const [placeholderCpf, setPlaceholderCpf] = useState('');
@@ -42,13 +37,7 @@ function PerfilPessoa() {
     const [placeholderTelefone, setPlaceholderTelefone] = useState('');
     const [placeholderDescricao, setPlaceholderDescricao] = useState('');
     const [placeholderFoto, setPlaceholderFoto] = useState('');
-
-    useEffect(()=>{
-        firebase.storage().ref(`imagens/${usuarioFoto}`).getDownloadURL()
-                          .then(url => setPlaceholderFoto(url))
-                          .catch(erro => setPlaceholderFoto("https://via.placeholder.com/100x50"));
-    },[placeholderFoto]);
-
+    
     useEffect(()=>{
         
         if(usuarioEmail === null){
@@ -77,16 +66,22 @@ function PerfilPessoa() {
                 setUsuarioTelefone(doc.data().telefone)
                 setUsuarioDescricao(doc.data().descricao)
                 setUsuarioFoto(doc.data().foto)
-                
-                            
-                
+
                 setAlterou(!alterou);
+
             }).catch((error)=>{
                 console.log("Erro ao tentar recuperar informações do usuário:",error);
             });
         }
         
     },[])
+
+    useEffect(()=>{
+        firebase.storage().ref(`imagens/${placeholderFoto.name+usuarioEmail}`).getDownloadURL()
+                          .then(url => setPlaceholderFoto(url))
+                          .catch(erro => {setPlaceholderFoto("https://via.placeholder.com/100x50")
+                            console.log("Entrou no erro")});
+    },[recarregaFoto]);
     
     function toDateTime(secs){
         var t = new Date(1970, 0, 1);
@@ -104,7 +99,9 @@ function PerfilPessoa() {
         // setPlaceholderNascimento(usuarioNascimento);
         setPlaceholderTelefone(usuarioTelefone);
         setPlaceholderDescricao(usuarioDescricao);
-        setPlaceholderFoto(usuarioFoto);
+        firebase.storage().ref(`imagens/${usuarioFoto}`).getDownloadURL()
+                          .then(url => setPlaceholderFoto(url))
+                          .catch(erro => {setPlaceholderFoto("https://via.placeholder.com/100x50")});
 
     },[alterou])
     
@@ -140,6 +137,10 @@ function PerfilPessoa() {
         setPlaceholderDescricao(event.target.value);
     }
 
+    function handleChangeFoto(event){
+        setPlaceholderFoto(event.target.files[0]);
+    }
+
     function salvarAlteracoes(){
 
         db.collection("usuarios").doc(usuarioEmail).get().then((doc)=>{
@@ -151,9 +152,7 @@ function PerfilPessoa() {
             setUsuarioEstado(doc.data().estado)
             setUsuarioTelefone(doc.data().telefone)
             setUsuarioDescricao(doc.data().descricao)
-            setUsuarioFoto(doc.data().foto)
 
-            setAlterou(!alterou);
         }).catch(()=>{
             console.log("Erro na edição, tente novamente!");
         });
@@ -169,16 +168,17 @@ function PerfilPessoa() {
             endereco: placeholderEndereco,
             descricao: placeholderDescricao,
             email: usuarioEmail,
-            // foto: placeholderFoto+usuarioEmail
-            foto: usuarioFoto
+            foto: placeholderFoto.name+usuarioEmail
 
-        }).then( () => {
+        }).then( () => { 
             
-            console.log("IMPORTANTE=>",placeholderFoto)
-            // storage.ref(`imagens/${placeholderFoto+usuarioEmail}`)
-            //            .put(placeholderFoto)
-            //            .then()
-            //            .catch();
+            storage.ref(`imagens/${placeholderFoto.name+usuarioEmail}`)
+                       .put(placeholderFoto)
+                       .then(()=>{
+                           setUsuarioFoto(placeholderFoto.name+usuarioEmail)
+                           setRecarregaFoto(!recarregaFoto);
+                       })
+                       .catch(setRecarregaFoto(!recarregaFoto));
             alert("Dados alterados com sucesso!");
             
         }).catch(() => {
@@ -368,13 +368,7 @@ function PerfilPessoa() {
                             <div>                                
                                 <label>Foto</label>
                                 <input type="file"  id="inputGroupFile04" className="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" 
-                                 onChange={(e) => {
-                                    console.log("EZINHO",e.target.files[0])
-                                    console.log("OnChange",placeholderFoto)
-                                    setPlaceholderFoto(e.target.files[0])
-                                    console.log("OnChange2",placeholderFoto)
-                                    }
-                                 }/>
+                                 onChange={handleChangeFoto}/>
                             </div>
                             <div>                                
                                 <label>Descricao</label>

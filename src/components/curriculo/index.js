@@ -14,6 +14,8 @@ function Curriculo({experiencia, formacao, habilidades, usuarioEmail, emailEmpre
     const [usuarioNascimento,setUsuarioNascimento] = useState(new Date());
     const [usuarioTelefone,setUsuarioTelefone] = useState('');
     const [usuarioDescricao,setUsuarioDescricao] = useState('');
+    const [usuarioFoto, setUsuarioFoto] = useState('');
+    const [placeholderUsuarioFoto, setPlaceholderUsuarioFoto] = useState('');
     
     const db = firebase.firestore();
     
@@ -27,6 +29,7 @@ function Curriculo({experiencia, formacao, habilidades, usuarioEmail, emailEmpre
             setUsuarioNascimento(doc.data().nascimento)
             setUsuarioTelefone(doc.data().telefone)
             setUsuarioDescricao(doc.data().descricao)
+            setUsuarioFoto(doc.data().foto)
         
         }).catch((error)=>{
             console.log("Erro ao tentar recuperar informações do usuário:",error);
@@ -55,12 +58,18 @@ function Curriculo({experiencia, formacao, habilidades, usuarioEmail, emailEmpre
 
     }
 
+    useEffect(()=>{
+        firebase.storage().ref(`imagens/${usuarioFoto}`).getDownloadURL()
+                          .then(url => setPlaceholderUsuarioFoto(url))
+                          .catch(erro => setPlaceholderUsuarioFoto("https://via.placeholder.com/100"));
+    },[usuarioFoto]);
+
     return (
         <>
             <Container>
                 <Pessoal>
                     <Pessoa>
-                        <img src="https://via.placeholder.com/150" alt="Foto de Perfil"></img>
+                        <img src={placeholderUsuarioFoto} alt="Foto de Perfil"></img>
                         <h3 className="mt-3">{usuarioNome}</h3>
                         <h5 className="mt-1">{formacao}</h5>
                     </Pessoa>

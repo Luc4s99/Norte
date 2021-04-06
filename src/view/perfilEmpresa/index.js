@@ -10,15 +10,6 @@ import { Link } from 'react-router-dom';
 function CadastroEmpresa() {
 
     const emailEmpresa = useSelector(state => state.emp.emailEmpresa)
-    // const nomeFantasia = useSelector(state => state.emp.nomeFantasia)
-    // const cnpj = useSelector(state => state.emp.cnpj)
-    // const razaoSocial = useSelector(state => state.emp.razaoSocial)
-    // const empresaCidade = useSelector(state => state.emp.empresaCidade)
-    // const empresaEstado = useSelector(state => state.emp.empresaEstado)
-    // const empresaEndereco = useSelector(state => state.emp.empresaEndereco)
-    // const empresaTelefone = useSelector(state => state.emp.empresaTelefone)
-    // const interesses = useSelector(state => state.emp.interesses)
-    // const empresaDescricao = useSelector(state => state.emp.empresaDescricao)
 
     const [nomeFantasia, setNomeFantasia] = useState('');
     const [cnpj, setCnpj] = useState('');
@@ -32,8 +23,11 @@ function CadastroEmpresa() {
     const [logoEmpresa, setLogoEmpresa] = useState('');
     
     const db = firebase.firestore();
+    const storage = firebase.storage();
 
     const [alterou, setAlterou] = useState(false);
+    const [recarregaFoto, setRecarregaFoto] = useState(false);
+
     const [placeholderNomeFantasia, setPlaceholderNomeFantasia] = useState('');
     const [placeholderCnpj, setPlaceholderCnpj] = useState('');
     const [placeholderRazaoSocial, setPlaceholderRazaoSocial] = useState('');
@@ -41,17 +35,10 @@ function CadastroEmpresa() {
     const [placeholderEmpresaEstado, setPlaceholderEmpresaEstado] = useState('');
     const [placeholderEmpresaEndereco, setPlaceholderEmpresaEndereco] = useState('');
     const [placeholderEmpresaTelefone, setPlaceholderEmpresaTelefone] = useState('');
-    const [placeholderInteresses, setPlaceholderInteresses] = useState('');
+    const [placeholderInteresses, setPlaceholderInteresses] = useState([]);
     const [placeholderDescricao, setPlaceholderDescricao] = useState('');
     const [placeholderLogoEmpresa, setPlaceholderLogoEmpresa] = useState('');
     
-    useEffect(()=>{
-        console.log("effect",logoEmpresa)
-        firebase.storage().ref(`imagens/${logoEmpresa}`).getDownloadURL()
-                          .then(url => setPlaceholderLogoEmpresa(url))
-                          .catch(erro => setPlaceholderLogoEmpresa("https://via.placeholder.com/100x50"));
-    },[placeholderLogoEmpresa]);
-
     useEffect(()=>{        
         if(emailEmpresa === null){
             window.location.href = "http://localhost:3000/login";
@@ -81,6 +68,12 @@ function CadastroEmpresa() {
     },[]) 
 
     useEffect(()=>{
+        firebase.storage().ref(`imagens/${placeholderLogoEmpresa.name+emailEmpresa}`).getDownloadURL()
+                          .then(url => setPlaceholderLogoEmpresa(url))
+                          .catch(erro => setPlaceholderLogoEmpresa("https://via.placeholder.com/100x50"));
+    },[recarregaFoto]);
+
+    useEffect(()=>{
 
         setPlaceholderNomeFantasia(nomeFantasia);
         setPlaceholderCnpj(cnpj);
@@ -89,11 +82,12 @@ function CadastroEmpresa() {
         setPlaceholderEmpresaEstado(empresaEstado);
         setPlaceholderEmpresaEndereco(empresaEndereco);
         setPlaceholderEmpresaTelefone(empresaTelefone);
-        setPlaceholderInteresses(...interesses);
         setPlaceholderDescricao(empresaDescricao);
-        setPlaceholderLogoEmpresa(logoEmpresa);
+        setPlaceholderInteresses(...interesses);
+        firebase.storage().ref(`imagens/${logoEmpresa}`).getDownloadURL()
+                          .then(url => setPlaceholderLogoEmpresa(url))
+                          .catch(erro => setPlaceholderLogoEmpresa("https://via.placeholder.com/100x50"));
         
-        console.log(nomeFantasia, cnpj, razaoSocial, empresaCidade, empresaEstado, empresaEndereco, empresaTelefone, interesses, empresaDescricao)
     },[alterou])
 
     function handleChangeNomeFantasia(event){
@@ -128,9 +122,9 @@ function CadastroEmpresa() {
         setPlaceholderDescricao(event.target.value);
     }
 
-    // function handleChangeNomeFantasia(event){
-    //     setPlaceholderNomeFantasia(event.target.value);
-    // }
+    function handleChangeLogoEmpresa(event){
+        setPlaceholderLogoEmpresa(event.target.files[0]);
+    }
     
     function salvarAlteracoes(){
         
@@ -144,10 +138,8 @@ function CadastroEmpresa() {
             setEmpresaEndereco(doc.data().endereco);
             setEmpresaTelefone(doc.data().telefone);                
             setEmpresaDescricao(doc.data().descricao);
-            setInteresses([...interesses, doc.data().interesses])
-            setLogoEmpresa(doc.data().logoEmpresa);
+            setInteresses([...interesses, doc.data().interesses]);
 
-            setAlterou(!alterou);
 
         }).catch(()=>{
             console.log("Erro na edição, tente novamente!");
@@ -161,14 +153,21 @@ function CadastroEmpresa() {
             descricao: placeholderDescricao,
             endereco: placeholderEmpresaEndereco,
             estado: placeholderEmpresaEstado,
-            interesses: placeholderInteresses,
             nomeFantasia: placeholderNomeFantasia,
+            interesses: placeholderInteresses,
             razaoSocial: placeholderRazaoSocial,
             telefone: placeholderEmpresaTelefone,
-            logoEmpresa: placeholderLogoEmpresa+emailEmpresa
+            logoEmpresa: placeholderLogoEmpresa.name+emailEmpresa
 
         }).then( () => {
-
+            
+            storage.ref(`imagens/${placeholderLogoEmpresa.name+emailEmpresa}`)
+                       .put(placeholderLogoEmpresa)
+                       .then(()=>{
+                           setLogoEmpresa(placeholderLogoEmpresa.name+emailEmpresa);
+                           setRecarregaFoto(!recarregaFoto);
+                       })
+                       .catch(setRecarregaFoto(!recarregaFoto));
             alert("Dados alterados com sucesso!");
             
         }).catch(() => {
@@ -283,12 +282,8 @@ function CadastroEmpresa() {
                         <img src={placeholderLogoEmpresa} alt="Pré-visualização da foto" className="preview-img" />                        
 
                         </Fotopreview>
-
-                        <input type="file"  id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload"/>
                             
                     </Fotoinput>
-
-                    {/* <i className="fas fa-plus fa-lg"></i> */}
 
                     <H2style>Interesses</H2style>
                     <Interesses>
@@ -413,6 +408,11 @@ function CadastroEmpresa() {
                                 <input type="text" value={placeholderEmpresaTelefone} onChange={handleChangeTelefone} className="form-control mb-2" />
                             </div>
                             <div>                                
+                                <label>Logo</label>
+                                <input type="file"  id="inputGroupFile04" className="form-control" aria-describedby="inputGroupFileAddon04" aria-label="Upload" 
+                                 onChange={handleChangeLogoEmpresa}/>
+                            </div>
+                            <div>                                
                                 <label>Descrição</label>
                                 <input type="text" value={placeholderDescricao} onChange={handleChangeDescricao} className="form-control mb-2" />
                             </div>
@@ -424,7 +424,7 @@ function CadastroEmpresa() {
                         </div>
 
                     </div>
-                </div>
+                </div> 
             </div>
         </>
   );
