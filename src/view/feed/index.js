@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Curriculo from '../../components/curriculo';
+import {Link} from 'react-router-dom';
 
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
@@ -9,6 +10,10 @@ import { Wrapper, DivCurriculo, Header, Filtro, Filtros } from './styles';
 import firebase from '../../config/firebase';
 import 'firebase/auth';
 
+import {useLocation, useHistory} from 'react-router-dom';
+import qs from 'query-string';
+
+
 function Feed() {
 
   const [curriculos, setCurriculos] = useState([]);
@@ -16,6 +21,54 @@ function Feed() {
   const [pesquisa, setPesquisa] = useState('');
   const [tipoFiltro, setTipoFiltro] = useState('');
   const emailEmpresa = useSelector(state => state.emp.emailEmpresa)
+
+  const [qtdPaginas, setQtdPaginas] = useState(1);
+  const [qtdCurriculos, setQtdCurriculos] = useState(1);
+  const [paginaAtual, setPaginaAtual] = useState(1);
+
+  let location = useLocation(); //Da acesso aos parametros da url
+  const history = useHistory(); //Manipula a URL
+  
+  useEffect(() => {
+
+    const queryParans = qs.parse(location.source);
+    history.push({
+        search: qs.stringify({
+            ...queryParans,
+            page: paginaAtual
+        })
+    })
+
+  }, [paginaAtual]);
+
+  useEffect(() => {
+
+    setPaginaAtual(getPaginaAtual() || 1);
+
+  },[]);
+
+  function getPaginaAtual(){
+    const queryParans = qs.parse(location.source);
+    const page = queryParans.page;
+    return page ? Number(page) : undefined;
+  }
+
+  function pagination(page, amount){
+    return curriculos.map(
+      (item,i) => {
+        return(
+          i >= amount * (page-1) && i < page * amount &&
+          <Curriculo 
+            key={item.i}
+            usuarioEmail={item.usuarioEmail}
+            experiencia={item.experiencia}
+            formacao={item.formacao}
+            habilidades={item.habilidades}
+            emailEmpresa={emailEmpresa}
+          />
+        ) 
+      })
+  }
 
   useEffect(()=>{
     
@@ -29,6 +82,8 @@ function Feed() {
           )
         })
         setCurriculos(listaCurriculos);
+        setQtdCurriculos(listaCurriculos.length);
+        setQtdPaginas(parseInt(listaCurriculos.length/5)+1);        
       });
 
     } else {
@@ -43,6 +98,8 @@ function Feed() {
             )
           })
           setCurriculos(listaCurriculos);
+          setQtdCurriculos(listaCurriculos.length);
+          setQtdPaginas(parseInt(listaCurriculos.length/5)+1);    
         });
 
       } else if(tipoFiltro === "Formacao"){
@@ -55,6 +112,8 @@ function Feed() {
             )
           })
           setCurriculos(listaCurriculos);
+          setQtdCurriculos(listaCurriculos.length);
+          setQtdPaginas(parseInt(listaCurriculos.length/5)+1);    
         });
 
       } else if(tipoFiltro === "Habilidades"){
@@ -67,6 +126,8 @@ function Feed() {
             )
           })
           setCurriculos(listaCurriculos);
+          setQtdCurriculos(listaCurriculos.length);
+          setQtdPaginas(parseInt(listaCurriculos.length/5)+1);    
         });
 
       } else if(tipoFiltro === "Idiomas"){
@@ -79,6 +140,8 @@ function Feed() {
             )
           })
           setCurriculos(listaCurriculos);
+          setQtdCurriculos(listaCurriculos.length);
+          setQtdPaginas(parseInt(listaCurriculos.length/5)+1);    
         });
 
       } else if(tipoFiltro === "Referencias"){
@@ -91,6 +154,8 @@ function Feed() {
             )
           })
           setCurriculos(listaCurriculos);
+          setQtdCurriculos(listaCurriculos.length);
+          setQtdPaginas(parseInt(listaCurriculos.length/5)+1);    
         });
 
       } else if(tipoFiltro === "Atividades"){
@@ -103,6 +168,8 @@ function Feed() {
             )
           })
           setCurriculos(listaCurriculos);
+          setQtdCurriculos(listaCurriculos.length);
+          setQtdPaginas(parseInt(listaCurriculos.length/5)+1);    
         });
       }
     }
@@ -121,8 +188,9 @@ function Feed() {
     }
     setTipoFiltro('');
     setPesquisa('');
+    setPaginaAtual(1);
   }
-
+  
   return (
     <>
         <Navbar />
@@ -156,23 +224,22 @@ function Feed() {
             </Filtro>
             <button type="button" className="btn btn-primary" onClick={()=>limpaFiltro()}> Limpar filtros </button>
           </Header>
-          <DivCurriculo>            
-            {curriculos.map(
-              (item) => {
-                return(
-                  <Curriculo 
-                    key={item.id}
-                    usuarioEmail={item.usuarioEmail}
-                    experiencia={item.experiencia}
-                    formacao={item.formacao}
-                    habilidades={item.habilidades}
-                    emailEmpresa={emailEmpresa}
-                  />
-                )
-                
-              }
-            )}
+          <DivCurriculo>
+            {pagination(paginaAtual,5)}
+            {
+              Array(qtdPaginas).fill('').map((_,index) => {
+                  return  <button  key={index}
+                            disabled={index === (paginaAtual-1)}
+                            onClick={() => {
+                                setPaginaAtual(index+1);    
+                            }}
+                            className="btn btn-primary btn-lg mr-3">
+                            {index+1}
+                          </button>
+              })
+            }
           </DivCurriculo>
+          <Link to="/perfilEmpresa" type="button" className="btn btn-success my-3">Voltar</Link>
         </Wrapper>
         <Footer />
     </>
