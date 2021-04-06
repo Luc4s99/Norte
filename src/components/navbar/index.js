@@ -28,11 +28,13 @@ function Navbar() {
     }
    
     useEffect(()=>{
-        if(usuarioEmail !== ""){
+       
+        if(usuarioEmail !== "" && usuarioEmail !== null){
             firebase.firestore().collection("notificacoes").doc(usuarioEmail).get().then((doc)=>{
                 setEmpresasInteressadas(doc.data().empresasInteressadas);
             }).catch((error)=>console.log(error));
         }
+        
     },[]) 
 
     return (

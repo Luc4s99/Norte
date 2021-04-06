@@ -35,7 +35,7 @@ function Feed() {
 
       if(tipoFiltro === "Experiencia"){
 
-        firebase.firestore().collection('curriculos').where('experiencias','array-contains',pesquisa).get().then( resultado => {
+        firebase.firestore().collection('curriculos').where('experiencia','array-contains',pesquisa).get().then( resultado => {
      
           resultado.docs.map( (doc,index) =>{           
             return(        
