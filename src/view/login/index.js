@@ -175,7 +175,7 @@ function Login() {
                 <Links>
 
                     <Link to="/cadastro">Ainda não possui conta?</Link>
-                    <Link to="/">Esqueceu sua senha?</Link>
+                    <Link to="/recuperarSenha">Esqueceu sua senha?</Link>
 
                 </Links>
 

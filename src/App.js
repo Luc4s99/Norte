@@ -4,7 +4,8 @@ import GlobalStyles from "./styles/GlobalStyles";
 import Cadastro from "./view/cadastro";
 import CadastroEmpresa from "./view/cadastroEmpresa"
 import CadastroPessoa from "./view/cadastroPessoa";
-import Login from "./view/login"
+import Login from "./view/login";
+import RecuperarSenha from "./view/recuperarSenha";
 import PerfilPessoa from "./view/perfilPessoa";
 import CadastroCurriculo from "./view/cadastroCurriculo";
 import Home from './view/home';
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/detalheCurriculo/:id" component={DetalheCurriculo} />
         <Route exact path="/detalheEmpresa/:id" component={DetalheEmpresa} />
         <Route exact path="/feed" component={Feed} />
+        <Route exact path="/recuperarSenha" component={RecuperarSenha} />
       </BrowserRouter>
       <GlobalStyles />
     </>
